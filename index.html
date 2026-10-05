@@ -49,6 +49,18 @@
             color: #ffdd88; font-weight: 700;
             transition: color 0.5s;
         }
+        #night-buff {
+            font-size: 12px; margin-top: 6px;
+            color: #ff5555; font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(255,50,50,0.8);
+            display: none;
+            animation: buff-pulse 1.5s ease-in-out infinite;
+        }
+        @keyframes buff-pulse {
+            0%, 100% { opacity: 0.6; }
+            50%      { opacity: 1; }
+        }
 
         /* ============ CROSSHAIR ============ */
         #crosshair {
@@ -124,17 +136,17 @@
             justify-content: center; align-items: center;
             z-index: 100;
             background:
-                radial-gradient(ellipse at center, #1a2a4a 0%, #0a0a15 70%, #000 100%);
+                radial-gradient(ellipse at center, #1a0a0a 0%, #0a0a0a 70%, #000 100%);
             overflow: hidden;
         }
         #main-menu::before {
             content: '';
             position: absolute; inset: -50%;
             background:
-                radial-gradient(circle at 20% 30%, rgba(255,50,50,0.15) 0%, transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(50,100,255,0.15) 0%, transparent 40%),
-                radial-gradient(circle at 50% 50%, rgba(150,50,255,0.1) 0%, transparent 50%);
-            animation: rotate-bg 20s linear infinite;
+                radial-gradient(circle at 20% 30%, rgba(255,0,0,0.12) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(80,0,0,0.15) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(150,0,0,0.08) 0%, transparent 50%);
+            animation: rotate-bg 30s linear infinite;
             pointer-events: none;
         }
         @keyframes rotate-bg {
@@ -145,76 +157,229 @@
         .menu-title {
             font-size: 78px; font-weight: 900;
             letter-spacing: 6px; margin-bottom: 8px;
-            background: linear-gradient(135deg, #ff4444 0%, #ffaa00 50%, #44ff88 100%);
+            background: linear-gradient(135deg, #cc0000 0%, #ff4400 50%, #660000 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 0 0 40px rgba(255,100,0,0.3);
+            text-shadow: 0 0 40px rgba(255,0,0,0.4);
             z-index: 1;
-            animation: pulse-title 3s ease-in-out infinite;
+            animation: pulse-title 2s ease-in-out infinite;
         }
         @keyframes pulse-title {
-            0%, 100% { filter: drop-shadow(0 0 10px rgba(255,100,0,0.5)); }
-            50%      { filter: drop-shadow(0 0 25px rgba(255,100,0,0.7)); }
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(255,0,0,0.6)); }
+            50%      { filter: drop-shadow(0 0 35px rgba(255,0,0,0.95)); }
         }
         .menu-subtitle {
-            font-size: 14px; color: #8899aa;
+            font-size: 14px; color: #884444;
             letter-spacing: 8px; text-transform: uppercase;
             margin-bottom: 60px; z-index: 1;
         }
         .menu-buttons {
             display: flex; flex-direction: column;
             gap: 16px; z-index: 1;
+            align-items: center;
         }
         .menu-btn {
             width: 320px; padding: 18px 30px;
             font-size: 20px; font-weight: 700;
             letter-spacing: 3px; text-transform: uppercase;
             color: #fff;
-            background: linear-gradient(135deg, rgba(30,40,60,0.9), rgba(15,20,35,0.9));
-            border: 2px solid rgba(100,150,255,0.4);
+            background: linear-gradient(135deg, rgba(40,15,15,0.9), rgba(20,5,5,0.9));
+            border: 2px solid rgba(200,50,50,0.5);
             border-radius: 12px; cursor: pointer;
             transition: all 0.25s ease;
             position: relative; overflow: hidden;
             backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.7);
             font-family: inherit;
         }
         .menu-btn::before {
             content: ''; position: absolute;
             top: 0; left: -100%; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255,50,50,0.2), transparent);
             transition: left 0.5s;
         }
         .menu-btn:hover::before { left: 100%; }
         .menu-btn:hover {
             transform: translateY(-3px) scale(1.03);
-            border-color: rgba(100,200,255,0.9);
-            box-shadow: 0 8px 30px rgba(50,150,255,0.5), 0 0 20px rgba(50,150,255,0.3) inset;
-            color: #aaddff;
+            border-color: rgba(255,80,80,0.9);
+            box-shadow: 0 8px 30px rgba(255,50,50,0.5), 0 0 20px rgba(255,50,50,0.3) inset;
+            color: #ffaaaa;
         }
         .menu-btn:active { transform: translateY(0) scale(0.98); }
         .menu-btn.play {
-            border-color: rgba(80,255,120,0.5);
-            background: linear-gradient(135deg, rgba(20,60,35,0.9), rgba(10,30,20,0.9));
+            border-color: rgba(255,60,60,0.7);
+            background: linear-gradient(135deg, rgba(60,10,10,0.9), rgba(30,3,3,0.9));
         }
         .menu-btn.play:hover {
-            border-color: rgba(80,255,120,1);
-            box-shadow: 0 8px 30px rgba(80,255,120,0.5), 0 0 20px rgba(80,255,120,0.3) inset;
-            color: #aaffbb;
+            border-color: rgba(255,40,40,1);
+            box-shadow: 0 8px 30px rgba(255,30,30,0.6), 0 0 20px rgba(255,30,30,0.4) inset;
+            color: #ffbbbb;
         }
         .menu-btn.shop {
-            border-color: rgba(255,200,50,0.5);
-            background: linear-gradient(135deg, rgba(60,45,15,0.9), rgba(30,22,8,0.9));
+            border-color: rgba(200,150,50,0.5);
+            background: linear-gradient(135deg, rgba(50,35,10,0.9), rgba(25,18,5,0.9));
         }
         .menu-btn.shop:hover {
             border-color: rgba(255,200,50,1);
             box-shadow: 0 8px 30px rgba(255,200,50,0.5), 0 0 20px rgba(255,200,50,0.3) inset;
             color: #ffdd88;
         }
+        .menu-btn.promo {
+            width: 220px;
+            padding: 12px 20px;
+            font-size: 15px;
+            letter-spacing: 2px;
+            border-color: rgba(255,80,80,0.5);
+            background: linear-gradient(135deg, rgba(60,15,15,0.9), rgba(30,8,8,0.9));
+        }
+        .menu-btn.promo:hover {
+            border-color: rgba(255,100,100,1);
+            box-shadow: 0 8px 30px rgba(255,60,60,0.5), 0 0 20px rgba(255,60,60,0.3) inset;
+            color: #ffbbbb;
+        }
         .menu-footer {
             position: absolute; bottom: 20px;
-            color: #445566; font-size: 12px;
+            color: #553333; font-size: 12px;
             letter-spacing: 2px; z-index: 1;
+        }
+
+        /* ============ ОКНО ПРОМОКОДА (левый верхний угол) ============ */
+        #promo-modal {
+            position: absolute;
+            top: 20px; left: 20px;
+            display: none;
+            z-index: 150;
+        }
+        #promo-modal-box {
+            width: 320px;
+            background: linear-gradient(135deg, rgba(30,10,10,0.98), rgba(15,5,5,0.98));
+            border: 2px solid rgba(255,80,80,0.6);
+            border-radius: 14px;
+            padding: 22px 22px 18px;
+            box-shadow: 0 0 40px rgba(255,50,50,0.4), 0 0 20px rgba(0,0,0,0.8);
+            position: relative;
+            animation: promo-pop-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        @keyframes promo-pop-in {
+            from { transform: scale(0.7) translateY(-10px); opacity: 0; }
+            to   { transform: scale(1) translateY(0); opacity: 1; }
+        }
+        #promo-modal-box h2 {
+            font-size: 18px;
+            letter-spacing: 4px;
+            color: #ff8888;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            text-shadow: 0 0 15px rgba(255,80,80,0.8);
+            text-align: center;
+        }
+        #promo-modal-box .promo-hint {
+            font-size: 11px;
+            color: #884444;
+            letter-spacing: 1.5px;
+            margin-bottom: 14px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+        #promo-modal-input {
+            width: 100%;
+            padding: 11px 14px;
+            font-size: 14px;
+            font-family: inherit;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-align: center;
+            color: #fff;
+            background: rgba(0,0,0,0.6);
+            border: 2px solid rgba(255,80,80,0.5);
+            border-radius: 9px;
+            outline: none;
+            transition: all 0.25s;
+            margin-bottom: 10px;
+        }
+        #promo-modal-input:focus {
+            border-color: #ff5555;
+            box-shadow: 0 0 20px rgba(255,50,50,0.7), 0 0 8px rgba(255,50,50,0.4) inset;
+            background: rgba(20,5,5,0.8);
+        }
+        #promo-modal-input::placeholder {
+            color: #663333;
+            letter-spacing: 2px;
+        }
+        #promo-modal-status {
+            min-height: 18px;
+            font-size: 12px;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            font-weight: 700;
+            text-align: center;
+        }
+        #promo-modal-status.success { color: #66ff88; text-shadow: 0 0 12px rgba(80,255,120,0.8); }
+        #promo-modal-status.error   { color: #ff5555; text-shadow: 0 0 12px rgba(255,50,50,0.8); }
+        #promo-modal-status.used    { color: #ffaa44; text-shadow: 0 0 12px rgba(255,180,50,0.8); }
+        .promo-modal-buttons {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+        }
+        .promo-modal-btn {
+            padding: 9px 20px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-family: inherit;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid;
+        }
+        .promo-modal-btn.apply {
+            color: #fff;
+            background: linear-gradient(135deg, #aa2a2a, #7a1a1a);
+            border-color: rgba(255,80,80,0.7);
+            box-shadow: 0 0 12px rgba(255,50,50,0.4);
+        }
+        .promo-modal-btn.apply:hover {
+            background: linear-gradient(135deg, #cc3a3a, #9a2a2a);
+            border-color: #ff8888;
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(255,50,50,0.7);
+        }
+        .promo-modal-btn.apply:active { transform: translateY(0); }
+        .promo-modal-btn.cancel {
+            color: #cc9999;
+            background: rgba(20,5,5,0.6);
+            border-color: rgba(150,80,80,0.5);
+        }
+        .promo-modal-btn.cancel:hover {
+            color: #ffaaaa;
+            border-color: #ff8888;
+            transform: translateY(-2px);
+        }
+        .promo-modal-btn.cancel:active { transform: translateY(0); }
+        #promo-modal-close {
+            position: absolute;
+            top: 8px; right: 10px;
+            width: 26px; height: 26px;
+            border-radius: 50%;
+            background: rgba(60,15,15,0.8);
+            border: 2px solid rgba(255,80,80,0.4);
+            color: #ff8888;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            font-family: inherit;
+            line-height: 1;
+        }
+        #promo-modal-close:hover {
+            background: rgba(120,20,20,0.9);
+            border-color: #ff8888;
+            color: #fff;
+            transform: rotate(90deg);
         }
 
         /* ============ ПАНЕЛИ ============ */
@@ -223,12 +388,12 @@
             display: none; flex-direction: column;
             justify-content: center; align-items: center;
             z-index: 110;
-            background: radial-gradient(ellipse at center, #1a2a4a 0%, #0a0a15 70%, #000 100%);
+            background: radial-gradient(ellipse at center, #1a0a0a 0%, #0a0a0a 70%, #000 100%);
             padding: 40px;
         }
         .panel h2 {
             font-size: 48px; margin-bottom: 30px;
-            background: linear-gradient(135deg, #66ccff, #aa66ff);
+            background: linear-gradient(135deg, #ff6666, #aa0000);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             background-clip: text; letter-spacing: 4px;
         }
@@ -294,26 +459,26 @@
         .panel-content {
             width: 100%; max-width: 700px;
             max-height: 70vh; overflow-y: auto;
-            background: rgba(20,25,40,0.7);
-            border: 2px solid rgba(100,150,255,0.3);
+            background: rgba(25,10,10,0.8);
+            border: 2px solid rgba(200,50,50,0.3);
             border-radius: 15px; padding: 25px;
             backdrop-filter: blur(10px);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.7);
         }
         .panel-content::-webkit-scrollbar { width: 8px; }
         .panel-content::-webkit-scrollbar-track { background: rgba(0,0,0,0.3); border-radius: 4px; }
-        .panel-content::-webkit-scrollbar-thumb { background: rgba(100,150,255,0.5); border-radius: 4px; }
+        .panel-content::-webkit-scrollbar-thumb { background: rgba(200,50,50,0.5); border-radius: 4px; }
 
         .shop-item {
             display: flex; justify-content: space-between; align-items: center;
             padding: 15px 20px; margin-bottom: 12px;
-            background: rgba(30,40,60,0.6);
-            border: 1px solid rgba(100,150,255,0.2);
+            background: rgba(40,20,20,0.6);
+            border: 1px solid rgba(200,50,50,0.2);
             border-radius: 10px; transition: all 0.2s;
         }
         .shop-item:hover {
-            background: rgba(40,55,80,0.8);
-            border-color: rgba(100,200,255,0.5);
+            background: rgba(60,25,25,0.8);
+            border-color: rgba(255,80,80,0.5);
             transform: translateX(5px);
         }
         .shop-item.active-skin {
@@ -321,8 +486,8 @@
             background: rgba(30,70,45,0.7);
             box-shadow: 0 0 20px rgba(80,255,120,0.4);
         }
-        .shop-item-info h3 { font-size: 17px; margin-bottom: 4px; color: #eef; }
-        .shop-item-info p  { font-size: 13px; color: #889; }
+        .shop-item-info h3 { font-size: 17px; margin-bottom: 4px; color: #ffe0e0; }
+        .shop-item-info p  { font-size: 13px; color: #aa8888; }
 
         .skin-preview {
             width: 42px; height: 42px;
@@ -365,16 +530,16 @@
         .setting-row {
             display: flex; justify-content: space-between; align-items: center;
             padding: 16px 5px;
-            border-bottom: 1px solid rgba(100,150,255,0.15);
+            border-bottom: 1px solid rgba(200,50,50,0.15);
             gap: 15px;
         }
         .setting-row:last-child { border-bottom: none; }
-        .setting-row label { font-size: 15px; color: #ccd; min-width: 180px; }
+        .setting-row label { font-size: 15px; color: #ddcccc; min-width: 180px; }
         .setting-row input[type="range"] {
-            flex: 1; accent-color: #66aaff; cursor: pointer;
+            flex: 1; accent-color: #ff5555; cursor: pointer;
         }
         .setting-value {
-            color: #88aaff; font-weight: 700;
+            color: #ff8888; font-weight: 700;
             min-width: 80px; text-align: right; font-size: 14px;
         }
 
@@ -383,50 +548,50 @@
         }
         .quality-btn {
             padding: 8px 14px; border-radius: 8px;
-            background: rgba(30,40,60,0.8);
-            border: 2px solid rgba(100,150,255,0.3);
-            color: #99aacc; font-size: 13px; font-weight: 700;
+            background: rgba(40,20,20,0.8);
+            border: 2px solid rgba(200,50,50,0.3);
+            color: #aa9999; font-size: 13px; font-weight: 700;
             cursor: pointer; transition: all 0.2s;
             font-family: inherit;
         }
         .quality-btn.active {
-            background: linear-gradient(135deg, #2a5aaa, #1a3a7a);
-            border-color: #66aaff; color: #fff;
-            box-shadow: 0 0 15px rgba(100,150,255,0.5);
+            background: linear-gradient(135deg, #aa2a2a, #7a1a1a);
+            border-color: #ff5555; color: #fff;
+            box-shadow: 0 0 15px rgba(255,50,50,0.5);
         }
-        .quality-btn:hover { border-color: #66aaff; color: #fff; }
+        .quality-btn:hover { border-color: #ff5555; color: #fff; }
 
         .toggle {
             position: relative; width: 50px; height: 26px;
-            background: rgba(30,40,60,0.8);
+            background: rgba(40,20,20,0.8);
             border-radius: 13px; cursor: pointer;
             transition: background 0.2s; flex-shrink: 0;
-            border: 2px solid rgba(100,150,255,0.3);
+            border: 2px solid rgba(200,50,50,0.3);
         }
         .toggle::after {
             content: ''; position: absolute;
             top: 2px; left: 2px;
             width: 18px; height: 18px;
-            background: #667; border-radius: 50%;
+            background: #665555; border-radius: 50%;
             transition: all 0.2s;
         }
-        .toggle.on { background: rgba(80,150,255,0.4); border-color: #66aaff; }
-        .toggle.on::after { left: 26px; background: #66aaff; box-shadow: 0 0 10px #66aaff; }
+        .toggle.on { background: rgba(255,60,60,0.4); border-color: #ff5555; }
+        .toggle.on::after { left: 26px; background: #ff5555; box-shadow: 0 0 10px #ff5555; }
 
         .back-btn {
             margin-top: 25px; padding: 14px 40px;
             font-size: 15px; font-weight: 700;
             letter-spacing: 2px; text-transform: uppercase;
-            background: linear-gradient(135deg, rgba(30,40,60,0.9), rgba(15,20,35,0.9));
-            border: 2px solid rgba(150,150,200,0.5);
-            border-radius: 10px; color: #ccd;
+            background: linear-gradient(135deg, rgba(40,20,20,0.9), rgba(20,5,5,0.9));
+            border: 2px solid rgba(200,100,100,0.5);
+            border-radius: 10px; color: #ddcccc;
             cursor: pointer; transition: all 0.2s;
             font-family: inherit;
         }
         .back-btn:hover {
-            border-color: #aaddff; color: #fff;
+            border-color: #ffaaaa; color: #fff;
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(100,150,255,0.4);
+            box-shadow: 0 6px 20px rgba(255,50,50,0.4);
         }
 
         /* ============ ПАУЗА ============ */
@@ -435,12 +600,12 @@
             display: none; flex-direction: column;
             justify-content: center; align-items: center;
             z-index: 90;
-            background: rgba(0,0,0,0.75);
+            background: rgba(0,0,0,0.85);
             backdrop-filter: blur(6px);
         }
         #pause-menu h2 {
-            font-size: 56px; color: #fff; margin-bottom: 40px;
-            letter-spacing: 6px; text-shadow: 0 0 30px rgba(100,150,255,0.8);
+            font-size: 56px; color: #ff3333; margin-bottom: 40px;
+            letter-spacing: 6px; text-shadow: 0 0 30px rgba(255,0,0,0.8);
         }
 
         /* ============ KILL FEED ============ */
@@ -451,7 +616,7 @@
             max-width: 250px;
         }
         .kill-msg {
-            background: rgba(0,0,0,0.6);
+            background: rgba(0,0,0,0.7);
             border-left: 3px solid #ff3333;
             padding: 8px 12px; border-radius: 5px;
             color: #ffcccc; font-size: 13px;
@@ -487,14 +652,14 @@
         #loading.hidden { opacity: 0; pointer-events: none; }
         .loader {
             width: 60px; height: 60px;
-            border: 4px solid rgba(100,150,255,0.2);
-            border-top-color: #66aaff;
+            border: 4px solid rgba(200,50,50,0.2);
+            border-top-color: #ff3333;
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
         #loading p {
-            margin-top: 20px; color: #66aaff;
+            margin-top: 20px; color: #ff3333;
             letter-spacing: 4px; font-size: 14px;
         }
 
@@ -507,11 +672,16 @@
         @media (max-width: 500px) {
             .menu-title { font-size: 42px; letter-spacing: 2px; }
             .menu-btn { width: 260px; font-size: 17px; padding: 14px 20px; }
+            .menu-btn.promo { width: 180px; font-size: 13px; padding: 10px 16px; }
             .panel h2 { font-size: 32px; }
             .setting-row label { min-width: auto; font-size: 13px; }
             #time-notification { font-size: 32px; letter-spacing: 4px; }
             .skin-preview { width: 32px; height: 32px; }
             #shop-coins-badge { font-size: 16px; padding: 10px 16px; }
+            #promo-modal-box { width: 280px; padding: 18px 18px 14px; }
+            #promo-modal-box h2 { font-size: 16px; letter-spacing: 3px; }
+            #promo-modal-input { font-size: 12px; padding: 9px 12px; }
+            .promo-modal-btn { padding: 8px 16px; font-size: 11px; }
         }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -529,9 +699,25 @@
         <div class="menu-buttons">
             <button class="menu-btn play" id="btn-play">▶ Играть</button>
             <button class="menu-btn shop" id="btn-shop">🛒 Магазин</button>
+            <button class="menu-btn promo" id="btn-promo">🎁 Промокоды</button>
             <button class="menu-btn"      id="btn-settings">⚙ Настройки</button>
         </div>
-        <div class="menu-footer">v2.7 • Fullscreen Lock • Made with Three.js</div>
+        <div class="menu-footer">v3.6 • Fullscreen Lock • Made with Three.js</div>
+    </div>
+
+    <!-- ★ ОКНО ПРОМОКОДА в левом верхнем углу -->
+    <div id="promo-modal">
+        <div id="promo-modal-box">
+            <button id="promo-modal-close">✕</button>
+            <h2>🎁 Промокод</h2>
+            <p class="promo-hint">Введите код и нажмите Применить</p>
+            <input type="text" id="promo-modal-input" placeholder="ПРОМОКОД" autocomplete="off" spellcheck="false" maxlength="32">
+            <div id="promo-modal-status"></div>
+            <div class="promo-modal-buttons">
+                <button class="promo-modal-btn apply" id="promo-modal-apply">Применить</button>
+                <button class="promo-modal-btn cancel" id="promo-modal-cancel">Отмена</button>
+            </div>
+        </div>
     </div>
 
     <div class="panel" id="shop-panel">
@@ -553,11 +739,6 @@
                 <label>🎯 Чувствительность мыши</label>
                 <input type="range" id="sens" min="0.3" max="3" step="0.1" value="1">
                 <span class="setting-value" id="sens-val">1.0</span>
-            </div>
-            <div class="setting-row">
-                <label>🔊 Громкость звука</label>
-                <input type="range" id="vol" min="0" max="100" step="1" value="70">
-                <span class="setting-value" id="vol-val">70</span>
             </div>
             <div class="setting-row">
                 <label>🎨 Качество графики</label>
@@ -611,6 +792,7 @@
         <div id="coins">💰 Монеты: 0</div>
         <div id="wave-info">🌊 Волна: 1</div>
         <div id="time-info">☀️ День</div>
+        <div id="night-buff">🌙 НОЧНОЙ БАФФ: +10% СКОРОСТЬ, +10% УРОН</div>
     </div>
     <div id="night-overlay"></div>
     <div id="crosshair"><div id="crosshair-dot"></div></div>
@@ -622,6 +804,8 @@
 
     <script>
         // ==================== ПОЛНОЭКРАННЫЙ РЕЖИМ ====================
+        // ★ Убрано автоматическое расширение экрана — фуллскрин запрашивается
+        // только при старте игры и больше не возвращается принудительно
         let fullscreenLocked = false;
 
         function enterFullscreen() {
@@ -639,26 +823,16 @@
             }
         }
 
-        function exitFullscreen() {
-            const exit = document.exitFullscreen ||
-                         document.webkitExitFullscreen ||
-                         document.mozCancelFullScreen ||
-                         document.msExitFullscreen;
-            if (exit && document.fullscreenElement) {
-                exit.call(document);
-            }
-        }
-
+        // ★ Больше НЕ возвращаем фуллскрин автоматически — если пользователь вышел, значит так и надо
         function handleFullscreenChange() {
             const isFs = !!(document.fullscreenElement ||
                             document.webkitFullscreenElement ||
                             document.mozFullScreenElement ||
                             document.msFullscreenElement);
-
-            if (!isFs && fullscreenLocked) {
-                setTimeout(() => {
-                    enterFullscreen();
-                }, 100);
+            if (!isFs) {
+                fullscreenLocked = false; // просто сбрасываем флаг
+            } else {
+                fullscreenLocked = true;
             }
         }
 
@@ -667,15 +841,11 @@
             document.addEventListener(evt, handleFullscreenChange);
         });
 
+        // ★ Блокируем только F11 (не даём выйти из игры случайно)
+        // Escape больше не блокируем, чтобы игрок мог выйти из фуллскрина
         function blockFullscreenExitKeys(e) {
             if (!fullscreenLocked) return;
-
             if (e.key === 'F11' || e.code === 'F11') {
-                e.preventDefault();
-                e.stopPropagation();
-                return false;
-            }
-            if ((e.key === 'Escape' || e.code === 'Escape') && !document.pointerLockElement) {
                 e.preventDefault();
                 e.stopPropagation();
                 return false;
@@ -688,7 +858,6 @@
         // ==================== НАСТРОЙКИ ====================
         const settings = {
             sensitivity: 1.0,
-            volume: 70,
             quality: 1,
             fogDensity: 0.01,
             details: true,
@@ -719,27 +888,106 @@
             return BULLET_SKINS.find(s => s.id === activeSkinId) || BULLET_SKINS[0];
         }
 
-        // ==================== ОПТИМИЗАЦИЯ: КЭШ ГЕОМЕТРИЙ И МАТЕРИАЛОВ ====================
-        const BULLET_CACHE = {
-            geometries: {},
-            materials: {}
+        // ==================== ПРОМОКОДЫ ====================
+        const PROMOCODES = {
+            'АГУША': { type: 'skin', reward: 'agusha', message: '🥛 Скин "Агуша" разблокирован!' },
+            'AGUSHA': { type: 'skin', reward: 'agusha', message: '🥛 Скин "Агуша" разблокирован!' }
         };
 
-        function getGeometry(key, factory) {
-            if (!BULLET_CACHE.geometries[key]) {
-                BULLET_CACHE.geometries[key] = factory();
+        const usedPromocodes = new Set();
+
+        function applyPromocode(rawCode) {
+            const code = rawCode.trim().toUpperCase();
+            if (!code) {
+                showPromoStatus('Введите промокод', 'error');
+                return;
             }
-            return BULLET_CACHE.geometries[key];
+            if (usedPromocodes.has(code)) {
+                showPromoStatus('Этот промокод уже использован', 'used');
+                return;
+            }
+            const promo = PROMOCODES[code];
+            if (!promo) {
+                showPromoStatus('Неверный промокод', 'error');
+                return;
+            }
+
+            if (promo.type === 'skin') {
+                if (ownedSkins.has(promo.reward)) {
+                    showPromoStatus('Этот скин уже есть у вас', 'used');
+                    usedPromocodes.add(code);
+                    return;
+                }
+                ownedSkins.add(promo.reward);
+                activeSkinId = promo.reward;
+                updateShopCoinsBadge();
+                showPromoStatus(promo.message, 'success');
+            } else if (promo.type === 'coins') {
+                coins += promo.reward;
+                document.getElementById('coins').innerText = "💰 Монеты: " + coins;
+                updateShopCoinsBadge(true);
+                showPromoStatus(promo.message, 'success');
+            }
+
+            usedPromocodes.add(code);
         }
 
-        function getMaterial(key, factory) {
-            if (!BULLET_CACHE.materials[key]) {
-                BULLET_CACHE.materials[key] = factory();
+        function showPromoStatus(text, type) {
+            const el = document.getElementById('promo-modal-status');
+            el.textContent = text;
+            el.className = type || '';
+        }
+
+        const promoModal = document.getElementById('promo-modal');
+        const promoModalInput = document.getElementById('promo-modal-input');
+        const promoModalStatus = document.getElementById('promo-modal-status');
+
+        function openPromoModal() {
+            promoModal.style.display = 'block';
+            promoModalInput.value = '';
+            promoModalStatus.textContent = '';
+            promoModalStatus.className = '';
+            setTimeout(() => promoModalInput.focus(), 100);
+        }
+
+        function closePromoModal() {
+            promoModal.style.display = 'none';
+            promoModalInput.value = '';
+            promoModalStatus.textContent = '';
+            promoModalStatus.className = '';
+        }
+
+        document.getElementById('btn-promo').addEventListener('click', openPromoModal);
+        document.getElementById('promo-modal-close').addEventListener('click', closePromoModal);
+        document.getElementById('promo-modal-cancel').addEventListener('click', closePromoModal);
+        document.getElementById('promo-modal-apply').addEventListener('click', () => {
+            applyPromocode(promoModalInput.value);
+        });
+        promoModalInput.addEventListener('keydown', (e) => {
+            e.stopPropagation();
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                applyPromocode(promoModalInput.value);
             }
+            if (e.key === 'Escape') {
+                closePromoModal();
+            }
+        });
+        promoModalInput.addEventListener('keyup', (e) => e.stopPropagation());
+        promoModalInput.addEventListener('keypress', (e) => e.stopPropagation());
+
+        // ==================== КЭШ ====================
+        const BULLET_CACHE = { geometries: {}, materials: {} };
+        function getGeometry(key, factory) {
+            if (!BULLET_CACHE.geometries[key]) BULLET_CACHE.geometries[key] = factory();
+            return BULLET_CACHE.geometries[key];
+        }
+        function getMaterial(key, factory) {
+            if (!BULLET_CACHE.materials[key]) BULLET_CACHE.materials[key] = factory();
             return BULLET_CACHE.materials[key];
         }
 
-        // ==================== МОДЕЛИ ПАТРОНОВ (ОПТИМИЗИРОВАННЫЕ) ====================
+        // ==================== МОДЕЛИ ПАТРОНОВ ====================
         function createBulletModel(skin) {
             const group = new THREE.Group();
 
@@ -844,14 +1092,6 @@
                         getMaterial('goldGlowMat', () => new THREE.MeshBasicMaterial({ color: 0xffdd44, transparent: true, opacity: 0.45 }))
                     );
                     group.add(glow);
-                    const halo = new THREE.Mesh(
-                        getGeometry('goldHalo', () => new THREE.SphereGeometry(0.45, 12, 12)),
-                        getMaterial('goldHaloMat', () => new THREE.MeshBasicMaterial({ color: 0xffaa00, transparent: true, opacity: 0.15 }))
-                    );
-                    group.add(halo);
-                    // Убираем PointLight из каждой пули — это сильно бьёт по производительности
-                    // const light = new THREE.PointLight(0xffcc00, 1.0, 5);
-                    // group.add(light);
                     break;
                 }
             }
@@ -875,7 +1115,12 @@
         camera.position.y = 1.6;
         camera.rotation.order = 'YXZ';
 
-        const renderer = new THREE.WebGLRenderer({ antialias: settings.quality > 0, powerPreference: 'high-performance' });
+        const renderer = new THREE.WebGLRenderer({
+            antialias: settings.quality > 0,
+            powerPreference: 'high-performance',
+            stencil: false,
+            depth: true
+        });
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, settings.quality === 2 ? 2 : 1));
         renderer.shadowMap.enabled = settings.quality > 0;
@@ -918,34 +1163,41 @@
         let waveNumber = 1;
         let cameraShake = 0;
 
-        // ★★★ 6 ПАТРОНОВ В СЕКУНДУ = 1000/6 ≈ 166.67 мс ★★★
+        let isNight = false;
+        const NIGHT_SPEED_BONUS = 1.10;
+        const NIGHT_DAMAGE_BONUS = 1.10;
+
         const FIRE_RATE_MS = 166.67;
         let lastShotTime = 0;
         let isShooting = false;
 
         // ==================== ЦИКЛ ДНЯ / НОЧИ ====================
-        const DAY_DURATION = 180;
-        const NIGHT_DURATION = 120;
-        const TOTAL_DURATION = DAY_DURATION + NIGHT_DURATION;
+        const PHASE_DAY = 180;
+        const PHASE_SUNSET = 30;
+        const PHASE_NIGHT = 120;
+        const PHASE_DAWN = 30;
+        const TOTAL_DURATION = PHASE_DAY + PHASE_SUNSET + PHASE_NIGHT + PHASE_DAWN;
+
         let worldTime = 0;
-        let currentPeriod = 'day';
+        let currentPhase = 'day';
 
         const daySky = new THREE.Color(0x87CEEB);
         const sunsetSky = new THREE.Color(0xff8855);
         const nightSky = new THREE.Color(0x0a0a2a);
+        const dawnSky = new THREE.Color(0xffaa88);
 
         // ==================== ОКРУЖЕНИЕ ====================
         function createGroundTexture() {
             const canvas = document.createElement('canvas');
             canvas.width = 256; canvas.height = 256;
             const ctx = canvas.getContext('2d');
-            ctx.fillStyle = '#3a5a2a';
+            ctx.fillStyle = '#2a3a1a';
             ctx.fillRect(0, 0, 256, 256);
             for (let i = 0; i < 1500; i++) {
                 const x = Math.random() * 256;
                 const y = Math.random() * 256;
-                const shade = 40 + Math.random() * 60;
-                ctx.fillStyle = `rgb(${shade - 20}, ${shade + 40}, ${shade - 30})`;
+                const shade = 20 + Math.random() * 50;
+                ctx.fillStyle = `rgb(${shade - 10}, ${shade + 30}, ${shade - 20})`;
                 ctx.fillRect(x, y, 2, 3);
             }
             return new THREE.CanvasTexture(canvas);
@@ -1008,7 +1260,7 @@
             }
             geo.computeVertexNormals();
             const mat = new THREE.MeshStandardMaterial({
-                color: 0x666a70, roughness: 0.9, flatShading: true
+                color: 0x4a4a50, roughness: 0.95, flatShading: true
             });
             const rock = new THREE.Mesh(geo, mat);
             rock.castShadow = settings.quality > 0;
@@ -1016,44 +1268,89 @@
             return rock;
         }
 
-        function createTree() {
+        function createDeadTree() {
             const group = new THREE.Group();
-            const trunkGeo = new THREE.CylinderGeometry(0.3, 0.45, 3, 8);
-            const trunkMat = new THREE.MeshStandardMaterial({ color: 0x4a2a1a, roughness: 0.95 });
+            const trunkHeight = 3.5 + Math.random() * 2.0;
+            const trunkGeo = new THREE.CylinderGeometry(0.22, 0.42, trunkHeight, 6);
+            const trunkMat = new THREE.MeshStandardMaterial({
+                color: 0x1f1208, roughness: 1, flatShading: true
+            });
             const trunk = new THREE.Mesh(trunkGeo, trunkMat);
-            trunk.position.y = 1.5;
+            trunk.position.y = trunkHeight / 2;
             trunk.castShadow = settings.quality > 0;
             group.add(trunk);
-            const leafMat = new THREE.MeshStandardMaterial({
-                color: 0x2a5a2a, roughness: 0.9, flatShading: true
+
+            const branchMat = new THREE.MeshStandardMaterial({
+                color: 0x150b03, roughness: 1, flatShading: true
             });
-            for (let i = 0; i < 4; i++) {
-                const leafGeo = new THREE.IcosahedronGeometry(1.2 + Math.random() * 0.5, 0);
-                const leaf = new THREE.Mesh(leafGeo, leafMat);
-                leaf.position.set(
-                    (Math.random() - 0.5) * 1.2,
-                    3 + Math.random() * 1,
-                    (Math.random() - 0.5) * 1.2
+            const branchCount = 5 + Math.floor(Math.random() * 4);
+            for (let i = 0; i < branchCount; i++) {
+                const branchLen = 1.0 + Math.random() * 1.5;
+                const branchGeo = new THREE.CylinderGeometry(0.04, 0.11, branchLen, 5);
+                const branch = new THREE.Mesh(branchGeo, branchMat);
+
+                const branchY = trunkHeight * (0.5 + Math.random() * 0.45);
+                const angle = Math.random() * Math.PI * 2;
+                const tilt = 0.5 + Math.random() * 0.8;
+
+                branch.position.set(
+                    Math.cos(angle) * 0.2,
+                    branchY,
+                    Math.sin(angle) * 0.2
                 );
-                leaf.castShadow = settings.quality > 0;
-                group.add(leaf);
+                branch.rotation.z = Math.cos(angle) * tilt;
+                branch.rotation.x = -Math.sin(angle) * tilt;
+                branch.castShadow = settings.quality > 0;
+                group.add(branch);
+
+                if (Math.random() > 0.4) {
+                    const twigGeo = new THREE.CylinderGeometry(0.02, 0.05, 0.6 + Math.random() * 0.5, 4);
+                    const twig = new THREE.Mesh(twigGeo, branchMat);
+                    twig.position.set(
+                        Math.cos(angle) * (0.2 + branchLen * 0.4),
+                        branchY + Math.sin(tilt) * branchLen * 0.4,
+                        Math.sin(angle) * (0.2 + branchLen * 0.4)
+                    );
+                    twig.rotation.z = Math.cos(angle) * (tilt + 0.6);
+                    twig.rotation.x = -Math.sin(angle) * (tilt + 0.6);
+                    twig.castShadow = settings.quality > 0;
+                    group.add(twig);
+                }
             }
+
+            if (Math.random() > 0.5) {
+                const rootGeo = new THREE.CylinderGeometry(0.06, 0.14, 0.8, 5);
+                const root = new THREE.Mesh(rootGeo, branchMat);
+                const rootAngle = Math.random() * Math.PI * 2;
+                root.position.set(
+                    Math.cos(rootAngle) * 0.35,
+                    0.15,
+                    Math.sin(rootAngle) * 0.35
+                );
+                root.rotation.z = Math.cos(rootAngle) * 1.2;
+                root.rotation.x = -Math.sin(rootAngle) * 1.2;
+                group.add(root);
+            }
+
             return group;
         }
 
-        function createBush() {
+        function createDeadBush() {
             const group = new THREE.Group();
             const mat = new THREE.MeshStandardMaterial({
-                color: 0x2a5a2a, roughness: 1, flatShading: true
+                color: 0x2a1a0a, roughness: 1, flatShading: true
             });
-            for (let i = 0; i < 3; i++) {
-                const geo = new THREE.IcosahedronGeometry(0.5 + Math.random() * 0.3, 0);
-                const bush = new THREE.Mesh(geo, mat);
-                bush.position.set(
-                    (Math.random() - 0.5) * 0.8, 0.4, (Math.random() - 0.5) * 0.8
-                );
-                bush.castShadow = settings.quality > 0;
-                group.add(bush);
+            const spikeCount = 5 + Math.floor(Math.random() * 3);
+            for (let i = 0; i < spikeCount; i++) {
+                const spikeGeo = new THREE.ConeGeometry(0.06, 0.5 + Math.random() * 0.4, 4);
+                const spike = new THREE.Mesh(spikeGeo, mat);
+                const angle = Math.random() * Math.PI * 2;
+                const radius = Math.random() * 0.4;
+                spike.position.set(Math.cos(angle) * radius, 0.2, Math.sin(angle) * radius);
+                spike.rotation.z = (Math.random() - 0.5) * 0.8;
+                spike.rotation.x = (Math.random() - 0.5) * 0.8;
+                spike.castShadow = settings.quality > 0;
+                group.add(spike);
             }
             return group;
         }
@@ -1064,8 +1361,8 @@
             }
             colliders.length = 0;
 
-            const count = settings.details ? 60 : 15;
-            for (let i = 0; i < count; i++) {
+            const rockCount = settings.details ? 50 : 12;
+            for (let i = 0; i < rockCount; i++) {
                 const rock = createRock();
                 let x, z;
                 do {
@@ -1080,9 +1377,9 @@
                 addCollider(x, z, Math.max(size.x, size.z) * 0.55);
             }
 
-            const treeCount = settings.details ? 30 : 8;
+            const treeCount = settings.details ? 90 : 25;
             for (let i = 0; i < treeCount; i++) {
-                const tree = createTree();
+                const tree = createDeadTree();
                 let x, z;
                 do {
                     x = Math.random() * 180 - 90;
@@ -1091,12 +1388,12 @@
                 tree.position.set(x, 0, z);
                 tree.rotation.y = Math.random() * Math.PI * 2;
                 worldDetails.add(tree);
-                addCollider(x, z, 0.6);
+                addCollider(x, z, 0.5);
             }
 
-            const bushCount = settings.details ? 40 : 10;
+            const bushCount = settings.details ? 60 : 15;
             for (let i = 0; i < bushCount; i++) {
-                const bush = createBush();
+                const bush = createDeadBush();
                 bush.position.set(
                     Math.random() * 180 - 90, 0, Math.random() * 180 - 90
                 );
@@ -1131,128 +1428,245 @@
             return newPos;
         }
 
-        // ==================== 3D МОДЕЛИ ВРАГОВ (ОПТИМИЗИРОВАННЫЕ) ====================
-        // Кэшируем общие геометрии и материалы для врагов
-        const ENEMY_CACHE = {
-            geometries: {},
-            materials: {}
-        };
-
+        // ==================== КЭШ ДЛЯ ВРАГОВ ====================
+        const ENEMY_CACHE = { geometries: {}, materials: {} };
         function getEnemyGeo(key, factory) {
-            if (!ENEMY_CACHE.geometries[key]) {
-                ENEMY_CACHE.geometries[key] = factory();
-            }
+            if (!ENEMY_CACHE.geometries[key]) ENEMY_CACHE.geometries[key] = factory();
             return ENEMY_CACHE.geometries[key];
         }
-
         function getEnemyMat(key, factory) {
-            if (!ENEMY_CACHE.materials[key]) {
-                ENEMY_CACHE.materials[key] = factory();
-            }
+            if (!ENEMY_CACHE.materials[key]) ENEMY_CACHE.materials[key] = factory();
             return ENEMY_CACHE.materials[key];
         }
 
+        // ==================== СТРАШНЫЕ ВРАГИ ====================
         function createSmugModel() {
             const group = new THREE.Group();
-            const bodyMat = getEnemyMat('smugBody', () => new THREE.MeshStandardMaterial({ color: 0x22cc44, roughness: 0.7 }));
-            const eyeMat  = getEnemyMat('smugEye', () => new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.3 }));
-            const pupilMat= getEnemyMat('smugPupil', () => new THREE.MeshBasicMaterial({ color: 0x000000 }));
-            const smileMat = getEnemyMat('smugSmile', () => new THREE.MeshBasicMaterial({ color: 0x000000 }));
-            const armMat = getEnemyMat('smugArm', () => new THREE.MeshStandardMaterial({ color: 0x118822, roughness: 0.7 }));
-            const legMat = getEnemyMat('smugLeg', () => new THREE.MeshStandardMaterial({ color: 0x0a6a1a, roughness: 0.8 }));
+            const skinMat = getEnemyMat('demonSkin', () => new THREE.MeshStandardMaterial({
+                color: 0x8a1515, roughness: 0.85,
+                emissive: 0x330000, emissiveIntensity: 0.4
+            }));
+            const darkMat = getEnemyMat('demonDark', () => new THREE.MeshStandardMaterial({
+                color: 0x2a0505, roughness: 0.9
+            }));
+            const hornMat = getEnemyMat('demonHorn', () => new THREE.MeshStandardMaterial({
+                color: 0x1a0a05, roughness: 0.6, metalness: 0.3
+            }));
+            const eyeMat = getEnemyMat('demonEye', () => new THREE.MeshBasicMaterial({ color: 0xff2200 }));
+            const pupilMat = getEnemyMat('demonPupil', () => new THREE.MeshBasicMaterial({ color: 0x000000 }));
+            const mouthMat = getEnemyMat('demonMouth', () => new THREE.MeshBasicMaterial({ color: 0x0a0000 }));
+            const toothMat = getEnemyMat('demonTooth', () => new THREE.MeshStandardMaterial({
+                color: 0xfff0d0, roughness: 0.3
+            }));
 
-            const body = new THREE.Mesh(getEnemyGeo('smugBodyGeo', () => new THREE.SphereGeometry(0.7, 12, 12)), bodyMat);
-            body.position.y = 0.9; body.scale.set(1, 1.15, 1); body.castShadow = true;
+            const body = new THREE.Mesh(getEnemyGeo('demonBodyGeo', () => new THREE.SphereGeometry(0.75, 12, 12)), skinMat);
+            body.position.y = 0.85; body.scale.set(1.15, 1.05, 1.0); body.castShadow = true;
             group.add(body);
-            const head = new THREE.Mesh(getEnemyGeo('smugHeadGeo', () => new THREE.SphereGeometry(0.55, 12, 12)), bodyMat);
-            head.position.y = 1.85; head.castShadow = true; group.add(head);
-            const eyeL = new THREE.Mesh(getEnemyGeo('smugEyeGeo', () => new THREE.SphereGeometry(0.14, 10, 10)), eyeMat);
-            eyeL.position.set(-0.2, 1.95, 0.45); group.add(eyeL);
-            const eyeR = eyeL.clone(); eyeR.position.x = 0.2; group.add(eyeR);
-            const pupilL = new THREE.Mesh(getEnemyGeo('smugPupilGeo', () => new THREE.SphereGeometry(0.07, 8, 8)), pupilMat);
-            pupilL.position.set(-0.2, 1.95, 0.56); group.add(pupilL);
-            const pupilR = pupilL.clone(); pupilR.position.x = 0.2; group.add(pupilR);
-            const smileGeo = getEnemyGeo('smugSmileGeo', () => new THREE.TorusGeometry(0.25, 0.04, 8, 16, Math.PI));
-            const smile = new THREE.Mesh(smileGeo, smileMat);
-            smile.position.set(0, 1.75, 0.5); smile.rotation.z = Math.PI; group.add(smile);
-            const armL = new THREE.Mesh(getEnemyGeo('smugArmGeo', () => new THREE.CylinderGeometry(0.15, 0.15, 0.9, 8)), armMat);
-            armL.position.set(-0.8, 1.0, 0); armL.rotation.z = 0.3; armL.castShadow = true;
+
+            const head = new THREE.Mesh(getEnemyGeo('demonHeadGeo', () => new THREE.SphereGeometry(0.6, 12, 12)), skinMat);
+            head.position.y = 1.8; head.scale.set(1.05, 0.95, 1.0); head.castShadow = true;
+            group.add(head);
+
+            const hornGeo = getEnemyGeo('demonHornGeo', () => new THREE.ConeGeometry(0.14, 0.9, 6));
+            const hornL = new THREE.Mesh(hornGeo, hornMat);
+            hornL.position.set(-0.35, 2.4, -0.05); hornL.rotation.z = 0.35; hornL.rotation.x = -0.2;
+            group.add(hornL);
+            const hornR = hornL.clone(); hornR.position.x = 0.35; hornR.rotation.z = -0.35;
+            group.add(hornR);
+
+            const smallHornGeo = getEnemyGeo('demonSmallHornGeo', () => new THREE.ConeGeometry(0.08, 0.4, 5));
+            const sh1 = new THREE.Mesh(smallHornGeo, hornMat);
+            sh1.position.set(-0.55, 2.0, 0); sh1.rotation.z = 1.2; group.add(sh1);
+            const sh2 = sh1.clone(); sh2.position.x = 0.55; sh2.rotation.z = -1.2; group.add(sh2);
+
+            const eyeGeo = getEnemyGeo('demonEyeGeo', () => new THREE.SphereGeometry(0.14, 10, 10));
+            const eyeL = new THREE.Mesh(eyeGeo, eyeMat);
+            eyeL.position.set(-0.24, 1.9, 0.5); group.add(eyeL);
+            const eyeR = eyeL.clone(); eyeR.position.x = 0.24; group.add(eyeR);
+
+            const pupilGeo = getEnemyGeo('demonPupilGeo', () => new THREE.SphereGeometry(0.055, 8, 8));
+            const pupilL = new THREE.Mesh(pupilGeo, pupilMat);
+            pupilL.position.set(-0.24, 1.9, 0.62); group.add(pupilL);
+            const pupilR = pupilL.clone(); pupilR.position.x = 0.24; group.add(pupilR);
+
+            const glowGeo = getEnemyGeo('demonGlowGeo', () => new THREE.SphereGeometry(0.22, 8, 8));
+            const glowMat = getEnemyMat('demonGlowMat', () => new THREE.MeshBasicMaterial({
+                color: 0xff2200, transparent: true, opacity: 0.25
+            }));
+            const glowL = new THREE.Mesh(glowGeo, glowMat);
+            glowL.position.set(-0.24, 1.9, 0.55); group.add(glowL);
+            const glowR = glowL.clone(); glowR.position.x = 0.24; group.add(glowR);
+
+            const mouth = new THREE.Mesh(getEnemyGeo('demonMouthGeo', () => new THREE.SphereGeometry(0.32, 12, 12)), mouthMat);
+            mouth.position.set(0, 1.5, 0.55); mouth.scale.set(1.2, 0.7, 0.6); group.add(mouth);
+
+            const fangGeo = getEnemyGeo('demonFangGeo', () => new THREE.ConeGeometry(0.06, 0.22, 4));
+            const fang1 = new THREE.Mesh(fangGeo, toothMat);
+            fang1.position.set(-0.15, 1.55, 0.65); fang1.rotation.x = Math.PI; group.add(fang1);
+            const fang2 = fang1.clone(); fang2.position.x = 0.15; group.add(fang2);
+            const fang3 = new THREE.Mesh(fangGeo, toothMat);
+            fang3.position.set(-0.08, 1.42, 0.65); group.add(fang3);
+            const fang4 = fang3.clone(); fang4.position.x = 0.08; group.add(fang4);
+
+            const armGeo = getEnemyGeo('demonArmGeo', () => new THREE.CylinderGeometry(0.14, 0.17, 0.9, 6));
+            const armL = new THREE.Mesh(armGeo, skinMat);
+            armL.position.set(-0.85, 1.05, 0); armL.rotation.z = 0.45; armL.castShadow = true;
             group.add(armL);
-            const armR = armL.clone(); armR.position.x = 0.8; armR.rotation.z = -0.3; group.add(armR);
-            const legL = new THREE.Mesh(getEnemyGeo('smugLegGeo', () => new THREE.CylinderGeometry(0.18, 0.18, 0.7, 8)), legMat);
-            legL.position.set(-0.3, 0.35, 0); legL.castShadow = true; group.add(legL);
+            const armR = armL.clone(); armR.position.x = 0.85; armR.rotation.z = -0.45; group.add(armR);
+
+            const clawGeo = getEnemyGeo('demonClawGeo', () => new THREE.ConeGeometry(0.035, 0.22, 4));
+            for (let i = 0; i < 3; i++) {
+                const claw = new THREE.Mesh(clawGeo, darkMat);
+                claw.position.set(-1.22, 0.6 + i * 0.1, -0.05 + i * 0.05);
+                claw.rotation.z = 1.0; group.add(claw);
+                const clawR = new THREE.Mesh(clawGeo, darkMat);
+                clawR.position.set(1.22, 0.6 + i * 0.1, -0.05 + i * 0.05);
+                clawR.rotation.z = -1.0; group.add(clawR);
+            }
+
+            const legGeo = getEnemyGeo('demonLegGeo', () => new THREE.CylinderGeometry(0.18, 0.2, 0.6, 6));
+            const legL = new THREE.Mesh(legGeo, skinMat);
+            legL.position.set(-0.3, 0.3, 0); legL.castShadow = true;
+            group.add(legL);
             const legR = legL.clone(); legR.position.x = 0.3; group.add(legR);
+
+            const hoofGeo = getEnemyGeo('demonHoofGeo', () => new THREE.CylinderGeometry(0.22, 0.18, 0.12, 5));
+            const hoofL = new THREE.Mesh(hoofGeo, darkMat);
+            hoofL.position.set(-0.3, 0.06, 0); group.add(hoofL);
+            const hoofR = hoofL.clone(); hoofR.position.x = 0.3; group.add(hoofR);
+
             return group;
         }
 
         function createScreamerModel() {
             const group = new THREE.Group();
-            const bodyMat = getEnemyMat('screamBody', () => new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.6 }));
-            const mouthMat = getEnemyMat('screamMouth', () => new THREE.MeshBasicMaterial({ color: 0x330000 }));
-            const eyeMat = getEnemyMat('screamEye', () => new THREE.MeshBasicMaterial({ color: 0x000000 }));
-            const tearMat = getEnemyMat('screamTear', () => new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.4 }));
-            const armMat = getEnemyMat('screamArm', () => new THREE.MeshStandardMaterial({ color: 0xdddddd, roughness: 0.7 }));
-            const legMat = getEnemyMat('screamLeg', () => new THREE.MeshStandardMaterial({ color: 0xcccccc, roughness: 0.8 }));
+            const ghostMat = getEnemyMat('ghostBody', () => new THREE.MeshStandardMaterial({
+                color: 0xdde0e8, roughness: 0.4,
+                transparent: true, opacity: 0.85,
+                emissive: 0x223355, emissiveIntensity: 0.3
+            }));
+            const darkMat = getEnemyMat('ghostDark', () => new THREE.MeshBasicMaterial({
+                color: 0x000000, transparent: true, opacity: 0.9
+            }));
+            const eyeSocketMat = getEnemyMat('ghostEyeSocket', () => new THREE.MeshBasicMaterial({ color: 0x000000 }));
+            const mouthMat = getEnemyMat('ghostMouth', () => new THREE.MeshBasicMaterial({ color: 0x000000 }));
 
-            const body = new THREE.Mesh(getEnemyGeo('screamBodyGeo', () => new THREE.SphereGeometry(0.75, 12, 12)), bodyMat);
-            body.position.y = 1.0; body.scale.set(1, 1.1, 1); body.castShadow = true;
+            const body = new THREE.Mesh(getEnemyGeo('ghostBodyGeo', () => new THREE.SphereGeometry(0.85, 14, 12)), ghostMat);
+            body.position.y = 1.25; body.scale.set(1, 1.4, 0.9); body.castShadow = true;
             group.add(body);
-            const head = new THREE.Mesh(getEnemyGeo('screamHeadGeo', () => new THREE.SphereGeometry(0.6, 12, 12)), bodyMat);
-            head.position.y = 1.95; head.scale.set(1, 1.1, 1); head.castShadow = true;
+
+            for (let i = 0; i < 7; i++) {
+                const wave = new THREE.Mesh(getEnemyGeo('ghostWaveGeo', () => new THREE.SphereGeometry(0.2, 8, 8)), ghostMat);
+                const angle = (i / 7) * Math.PI * 2;
+                wave.position.set(Math.cos(angle) * 0.7, 0.4 + Math.sin(angle * 2) * 0.1, Math.sin(angle) * 0.7);
+                group.add(wave);
+            }
+
+            const head = new THREE.Mesh(getEnemyGeo('ghostHeadGeo', () => new THREE.SphereGeometry(0.6, 12, 12)), ghostMat);
+            head.position.y = 2.15; head.scale.set(0.95, 1.15, 0.95); head.castShadow = true;
             group.add(head);
-            const mouth = new THREE.Mesh(getEnemyGeo('screamMouthGeo', () => new THREE.SphereGeometry(0.4, 12, 12)), mouthMat);
-            mouth.position.set(0, 1.75, 0.35); mouth.scale.set(1.1, 1.4, 0.6); group.add(mouth);
-            const eyeL = new THREE.Mesh(getEnemyGeo('screamEyeGeo', () => new THREE.SphereGeometry(0.12, 10, 10)), eyeMat);
-            eyeL.position.set(-0.28, 2.15, 0.45); group.add(eyeL);
-            const eyeR = eyeL.clone(); eyeR.position.x = 0.28; group.add(eyeR);
-            const lineL = new THREE.Mesh(getEnemyGeo('screamLineGeo', () => new THREE.SphereGeometry(0.06, 8, 8)), tearMat);
-            lineL.position.set(-0.28, 2.02, 0.55); lineL.scale.set(0.5, 2.5, 0.3); group.add(lineL);
-            const lineR = lineL.clone(); lineR.position.x = 0.28; group.add(lineR);
-            const armL = new THREE.Mesh(getEnemyGeo('screamArmGeo', () => new THREE.CylinderGeometry(0.15, 0.15, 1.1, 8)), armMat);
-            armL.position.set(-0.85, 1.4, 0); armL.rotation.z = -0.6; armL.castShadow = true;
+
+            const socketGeo = getEnemyGeo('ghostSocketGeo', () => new THREE.SphereGeometry(0.15, 10, 10));
+            const socketL = new THREE.Mesh(socketGeo, eyeSocketMat);
+            socketL.position.set(-0.24, 2.25, 0.5); socketL.scale.set(1, 1.4, 0.6); group.add(socketL);
+            const socketR = socketL.clone(); socketR.position.x = 0.24; group.add(socketR);
+
+            const ghostEyeMat = getEnemyMat('ghostEye', () => new THREE.MeshBasicMaterial({ color: 0xaaccff }));
+            const eyeL = new THREE.Mesh(getEnemyGeo('ghostEyeGeo', () => new THREE.SphereGeometry(0.055, 6, 6)), ghostEyeMat);
+            eyeL.position.set(-0.24, 2.25, 0.57); group.add(eyeL);
+            const eyeR = eyeL.clone(); eyeR.position.x = 0.24; group.add(eyeR);
+
+            const mouth = new THREE.Mesh(getEnemyGeo('ghostMouthGeo', () => new THREE.SphereGeometry(0.2, 10, 10)), mouthMat);
+            mouth.position.set(0, 1.85, 0.52); mouth.scale.set(1.2, 0.6, 0.5); group.add(mouth);
+
+            const armGeo = getEnemyGeo('ghostArmGeo', () => new THREE.CylinderGeometry(0.08, 0.11, 1.4, 6));
+            const armL = new THREE.Mesh(armGeo, ghostMat);
+            armL.position.set(-0.85, 1.8, 0); armL.rotation.z = -0.5; armL.castShadow = true;
             group.add(armL);
-            const armR = armL.clone(); armR.position.x = 0.85; armR.rotation.z = 0.6; group.add(armR);
-            const legL = new THREE.Mesh(getEnemyGeo('screamLegGeo', () => new THREE.CylinderGeometry(0.18, 0.18, 0.75, 8)), legMat);
-            legL.position.set(-0.3, 0.38, 0); legL.castShadow = true; group.add(legL);
-            const legR = legL.clone(); legR.position.x = 0.3; group.add(legR);
+            const armR = armL.clone(); armR.position.x = 0.85; armR.rotation.z = 0.5; group.add(armR);
+
+            const fingerGeo = getEnemyGeo('ghostFingerGeo', () => new THREE.ConeGeometry(0.025, 0.3, 4));
+            for (let i = 0; i < 4; i++) {
+                const fL = new THREE.Mesh(fingerGeo, ghostMat);
+                fL.position.set(-1.35 + i * 0.08, 2.5, -0.05 + i * 0.05);
+                fL.rotation.z = -0.3 + i * 0.15; group.add(fL);
+                const fR = new THREE.Mesh(fingerGeo, ghostMat);
+                fR.position.set(1.35 - i * 0.08, 2.5, -0.05 + i * 0.05);
+                fR.rotation.z = 0.3 - i * 0.15; group.add(fR);
+            }
+
             return group;
         }
 
         function createCrierModel() {
             const group = new THREE.Group();
-            const bodyMat = getEnemyMat('crierBody', () => new THREE.MeshStandardMaterial({ color: 0x5577aa, roughness: 0.7 }));
-            const eyeMat = getEnemyMat('crierEye', () => new THREE.MeshBasicMaterial({ color: 0x000000 }));
-            const tearMat = getEnemyMat('crierTear', () => new THREE.MeshStandardMaterial({
-                color: 0x88ccff, transparent: true, opacity: 0.85,
-                roughness: 0.1, metalness: 0.3
+            const bodyMat = getEnemyMat('shadowBody', () => new THREE.MeshStandardMaterial({
+                color: 0x1a1a22, roughness: 0.9,
+                emissive: 0x0a0010, emissiveIntensity: 0.5
             }));
-            const frownMat = getEnemyMat('crierFrown', () => new THREE.MeshBasicMaterial({ color: 0x000000 }));
-            const armMat = getEnemyMat('crierArm', () => new THREE.MeshStandardMaterial({ color: 0x334466, roughness: 0.8 }));
-            const legMat = getEnemyMat('crierLeg', () => new THREE.MeshStandardMaterial({ color: 0x223355, roughness: 0.8 }));
+            const darkerMat = getEnemyMat('shadowDarker', () => new THREE.MeshStandardMaterial({
+                color: 0x0a0a10, roughness: 1
+            }));
+            const eyeMat = getEnemyMat('shadowEye', () => new THREE.MeshBasicMaterial({ color: 0xff0000 }));
+            const eyeGlowMat = getEnemyMat('shadowEyeGlow', () => new THREE.MeshBasicMaterial({
+                color: 0xff0000, transparent: true, opacity: 0.4
+            }));
 
-            const body = new THREE.Mesh(getEnemyGeo('crierBodyGeo', () => new THREE.SphereGeometry(0.65, 12, 12)), bodyMat);
-            body.position.y = 0.85; body.scale.set(1, 1.1, 1); body.castShadow = true;
+            const body = new THREE.Mesh(getEnemyGeo('shadowBodyGeo', () => new THREE.SphereGeometry(0.75, 12, 12)), bodyMat);
+            body.position.y = 0.95; body.scale.set(1.0, 1.15, 0.95); body.castShadow = true;
             group.add(body);
-            const head = new THREE.Mesh(getEnemyGeo('crierHeadGeo', () => new THREE.SphereGeometry(0.5, 12, 12)), bodyMat);
-            head.position.y = 1.7; head.castShadow = true; group.add(head);
-            const eyeL = new THREE.Mesh(getEnemyGeo('crierEyeGeo', () => new THREE.SphereGeometry(0.13, 10, 10)), eyeMat);
-            eyeL.position.set(-0.18, 1.8, 0.42); group.add(eyeL);
-            const eyeR = eyeL.clone(); eyeR.position.x = 0.18; group.add(eyeR);
-            const tearL = new THREE.Mesh(getEnemyGeo('crierTearGeo', () => new THREE.SphereGeometry(0.09, 8, 8)), tearMat);
-            tearL.position.set(-0.18, 1.62, 0.5); tearL.scale.set(0.7, 1.4, 0.7); group.add(tearL);
-            const tearR = tearL.clone(); tearR.position.x = 0.18; group.add(tearR);
-            const frownGeo = getEnemyGeo('crierFrownGeo', () => new THREE.TorusGeometry(0.2, 0.035, 8, 16, Math.PI));
-            const frown = new THREE.Mesh(frownGeo, frownMat);
-            frown.position.set(0, 1.55, 0.45); group.add(frown);
-            const armL = new THREE.Mesh(getEnemyGeo('crierArmGeo', () => new THREE.CylinderGeometry(0.13, 0.13, 0.85, 8)), armMat);
-            armL.position.set(-0.75, 0.95, 0); armL.rotation.z = 0.15; armL.castShadow = true;
+
+            const head = new THREE.Mesh(getEnemyGeo('shadowHeadGeo', () => new THREE.SphereGeometry(0.58, 12, 12)), bodyMat);
+            head.position.set(0, 1.9, 0.1); head.scale.set(1.0, 0.9, 1.05); head.rotation.x = 0.2;
+            head.castShadow = true; group.add(head);
+
+            const earGeo = getEnemyGeo('shadowEarGeo', () => new THREE.ConeGeometry(0.1, 0.55, 5));
+            const earL = new THREE.Mesh(earGeo, darkerMat);
+            earL.position.set(-0.4, 2.35, 0.1); earL.rotation.z = 0.35; group.add(earL);
+            const earR = earL.clone(); earR.position.x = 0.4; earR.rotation.z = -0.35; group.add(earR);
+
+            const shGeo = getEnemyGeo('shadowSmallHornGeo', () => new THREE.ConeGeometry(0.05, 0.25, 4));
+            const sh1 = new THREE.Mesh(shGeo, darkerMat);
+            sh1.position.set(-0.5, 2.0, 0.1); sh1.rotation.z = 1.0; group.add(sh1);
+            const sh2 = sh1.clone(); sh2.position.x = 0.5; sh2.rotation.z = -1.0; group.add(sh2);
+
+            const eyeGeo = getEnemyGeo('shadowEyeGeo', () => new THREE.SphereGeometry(0.09, 8, 8));
+            const eyeL = new THREE.Mesh(eyeGeo, eyeMat);
+            eyeL.position.set(-0.2, 2.0, 0.55); group.add(eyeL);
+            const eyeR = eyeL.clone(); eyeR.position.x = 0.2; group.add(eyeR);
+
+            const glowGeo = getEnemyGeo('shadowGlowGeo', () => new THREE.SphereGeometry(0.18, 8, 8));
+            const glowL = new THREE.Mesh(glowGeo, eyeGlowMat);
+            glowL.position.set(-0.2, 2.0, 0.6); group.add(glowL);
+            const glowR = glowL.clone(); glowR.position.x = 0.2; group.add(glowR);
+
+            const armGeo = getEnemyGeo('shadowArmGeo', () => new THREE.CylinderGeometry(0.07, 0.1, 1.5, 6));
+            const armL = new THREE.Mesh(armGeo, bodyMat);
+            armL.position.set(-0.75, 1.0, 0.05); armL.rotation.z = 0.15; armL.castShadow = true;
             group.add(armL);
             const armR = armL.clone(); armR.position.x = 0.75; armR.rotation.z = -0.15; group.add(armR);
-            const legL = new THREE.Mesh(getEnemyGeo('crierLegGeo', () => new THREE.CylinderGeometry(0.16, 0.16, 0.65, 8)), legMat);
-            legL.position.set(-0.28, 0.33, 0); legL.castShadow = true; group.add(legL);
+
+            const clawGeo = getEnemyGeo('shadowClawGeo', () => new THREE.ConeGeometry(0.03, 0.3, 4));
+            for (let i = 0; i < 3; i++) {
+                const claw = new THREE.Mesh(clawGeo, darkerMat);
+                claw.position.set(-0.78 + i * 0.03, 0.15, 0.05); claw.rotation.x = Math.PI; group.add(claw);
+                const clawR = new THREE.Mesh(clawGeo, darkerMat);
+                clawR.position.set(0.78 - i * 0.03, 0.15, 0.05); clawR.rotation.x = Math.PI; group.add(clawR);
+            }
+
+            const legGeo = getEnemyGeo('shadowLegGeo', () => new THREE.CylinderGeometry(0.11, 0.14, 0.55, 5));
+            const legL = new THREE.Mesh(legGeo, bodyMat);
+            legL.position.set(-0.28, 0.27, 0); legL.castShadow = true; group.add(legL);
             const legR = legL.clone(); legR.position.x = 0.28; group.add(legR);
-            group.userData.tearL = tearL;
-            group.userData.tearR = tearR;
+
+            const footGeo = getEnemyGeo('shadowFootGeo', () => new THREE.ConeGeometry(0.06, 0.2, 4));
+            for (let i = 0; i < 3; i++) {
+                const fL = new THREE.Mesh(footGeo, darkerMat);
+                fL.position.set(-0.32 + i * 0.04, 0.02, 0.1); fL.rotation.x = Math.PI * 0.5; group.add(fL);
+                const fR = new THREE.Mesh(footGeo, darkerMat);
+                fR.position.set(0.32 - i * 0.04, 0.02, 0.1); fR.rotation.x = Math.PI * 0.5; group.add(fR);
+            }
+
             return group;
         }
 
@@ -1262,16 +1676,221 @@
             return createCrierModel();
         }
 
+        // ==================== РАЗЛЕТАЮЩИЕСЯ ЧАСТИ ТЕЛА ПРИ УБИЙСТВЕ ====================
+        // ★ При убийстве врага его 3D-модель разбирается на части и они разлетаются
+        const bodyParts = [];
+
+        // ★ Пул геометрий для обломков (переиспользуются)
+        const PART_GEOMETRIES = [
+            new THREE.SphereGeometry(0.15, 6, 6),
+            new THREE.BoxGeometry(0.18, 0.18, 0.18),
+            new THREE.TetrahedronGeometry(0.16, 0),
+            new THREE.OctahedronGeometry(0.15, 0),
+            new THREE.ConeGeometry(0.1, 0.2, 4)
+        ];
+
+        // ★ Цвета для разных типов врагов
+        const PART_COLORS = {
+            smug: [0x8a1515, 0x2a0505, 0x1a0a05, 0xff2200],
+            screamer: [0xdde0e8, 0xaabbcc, 0x8899bb, 0x223355],
+            crier: [0x1a1a22, 0x0a0a10, 0xff0000, 0x330000]
+        };
+
+        // ★ Пул материалов по цветам (чтобы не создавать каждый раз)
+        const PART_MATERIALS = {};
+        function getPartMaterial(color) {
+            if (!PART_MATERIALS[color]) {
+                PART_MATERIALS[color] = new THREE.MeshStandardMaterial({
+                    color: color,
+                    roughness: 0.65,
+                    emissive: color,
+                    emissiveIntensity: 0.15
+                });
+            }
+            return PART_MATERIALS[color];
+        }
+
+        // ★ Следы крови на месте убийства
+        const bloodDecals = [];
+        const MAX_DECALS = 25;
+
+        function createBloodDecal(x, z, scale = 1) {
+            const group = new THREE.Group();
+            const spotCount = 4 + Math.floor(Math.random() * 3);
+            const baseR = 0.55 * scale;
+
+            for (let i = 0; i < spotCount; i++) {
+                const r = baseR * (0.4 + Math.random() * 0.8);
+                const geo = new THREE.CircleGeometry(r, 10);
+                const mat = new THREE.MeshBasicMaterial({
+                    color: i % 2 === 0 ? 0x660000 : 0x440000,
+                    transparent: true,
+                    opacity: 0.75 + Math.random() * 0.2,
+                    side: THREE.DoubleSide,
+                    depthWrite: false
+                });
+                const spot = new THREE.Mesh(geo, mat);
+                const angle = Math.random() * Math.PI * 2;
+                const dist = Math.random() * baseR * 1.5;
+                spot.position.set(
+                    Math.cos(angle) * dist,
+                    0.03 + i * 0.001,
+                    Math.sin(angle) * dist
+                );
+                spot.rotation.x = -Math.PI / 2;
+                spot.rotation.z = Math.random() * Math.PI * 2;
+                group.add(spot);
+            }
+            group.position.set(x, 0, z);
+            scene.add(group);
+
+            bloodDecals.push(group);
+            if (bloodDecals.length > MAX_DECALS) {
+                const old = bloodDecals.shift();
+                scene.remove(old);
+                old.children.forEach(c => {
+                    if (c.geometry) c.geometry.dispose();
+                    if (c.material) c.material.dispose();
+                });
+            }
+        }
+
+        // ★ Разбор врага на части: обходим все меши модели,
+        //    берём их мировые позиции и создаём независимые обломки
+        function dismemberEnemy(enemyMesh, type) {
+            const colors = PART_COLORS[type] || PART_COLORS.smug;
+            const basePos = enemyMesh.position.clone();
+
+            // Собираем все меши модели и их мировые позиции
+            const meshParts = [];
+            enemyMesh.updateMatrixWorld(true);
+            enemyMesh.traverse(child => {
+                if (child.isMesh && child.geometry) {
+                    const worldPos = new THREE.Vector3();
+                    child.getWorldPosition(worldPos);
+                    meshParts.push({
+                        worldPos: worldPos,
+                        geometry: child.geometry
+                    });
+                }
+            });
+
+            // Ограничиваем количество обломков, чтобы не лагало
+            const maxParts = 12;
+            const step = Math.max(1, Math.floor(meshParts.length / maxParts));
+            let created = 0;
+
+            for (let i = 0; i < meshParts.length && created < maxParts; i += step) {
+                const part = meshParts[i];
+                // Случайная геометрия из пула
+                const geo = PART_GEOMETRIES[Math.floor(Math.random() * PART_GEOMETRIES.length)];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const mat = getPartMaterial(color);
+                const piece = new THREE.Mesh(geo, mat);
+
+                // Ставим в мировую позицию части тела
+                piece.position.copy(part.worldPos);
+                piece.scale.setScalar(0.8 + Math.random() * 0.6);
+
+                // Скорость разлёта — от центра врага наружу
+                const dirX = part.worldPos.x - basePos.x;
+                const dirZ = part.worldPos.z - basePos.z;
+                const len = Math.sqrt(dirX * dirX + dirZ * dirZ) || 1;
+
+                // Разлёт НЕДАЛЕКО от места убийства — горизонтальная скорость умеренная
+                const speedH = 1.5 + Math.random() * 2.5;
+                piece.userData.vx = (dirX / len) * speedH + (Math.random() - 0.5) * 1.5;
+                piece.userData.vz = (dirZ / len) * speedH + (Math.random() - 0.5) * 1.5;
+                piece.userData.vy = 2.5 + Math.random() * 3.5;
+
+                piece.userData.life = 0;
+                piece.userData.maxLife = 1.5 + Math.random() * 1.2;
+                piece.userData.rotSpeed = {
+                    x: (Math.random() - 0.5) * 14,
+                    y: (Math.random() - 0.5) * 14,
+                    z: (Math.random() - 0.5) * 14
+                };
+
+                scene.add(piece);
+                bodyParts.push(piece);
+                created++;
+            }
+
+            // ★ Красный след на месте убийства
+            createBloodDecal(basePos.x, basePos.z, 1.0);
+        }
+
+        function updateBodyParts(dt) {
+            for (let i = bodyParts.length - 1; i >= 0; i--) {
+                const p = bodyParts[i];
+                p.userData.life += dt;
+
+                // Гравитация
+                p.userData.vy -= 14 * dt;
+
+                p.position.x += p.userData.vx * dt;
+                p.position.y += p.userData.vy * dt;
+                p.position.z += p.userData.vz * dt;
+
+                // Вращение
+                p.rotation.x += p.userData.rotSpeed.x * dt;
+                p.rotation.y += p.userData.rotSpeed.y * dt;
+                p.rotation.z += p.userData.rotSpeed.z * dt;
+
+                // Отскок от земли
+                if (p.position.y < 0.08 && p.userData.vy < 0) {
+                    p.position.y = 0.08;
+                    p.userData.vy *= -0.4;
+                    p.userData.vx *= 0.6;
+                    p.userData.vz *= 0.6;
+                    if (Math.abs(p.userData.vy) < 0.5) {
+                        p.userData.vy = 0;
+                        p.userData.vx *= 0.3;
+                        p.userData.vz *= 0.3;
+                    }
+                }
+
+                // Затухание по времени жизни
+                if (p.userData.life > p.userData.maxLife) {
+                    scene.remove(p);
+                    bodyParts.splice(i, 1);
+                }
+            }
+        }
+
         // ==================== ВРАГИ ====================
         class Enemy {
             constructor(type) {
                 this.type = type;
-                this.speed = 4.5;
-                this.health = type === 'crier' ? 1 : type === 'smug' ? 5 : 10;
-                this.maxHealth = this.health;
-                this.damage = type === 'crier' ? 5 : type === 'smug' ? 10 : 15;
-                this.hitCooldown = 0;
+                this.baseSpeed = 4.0;
+                this.baseDamage = 10;
+
+                if (type === 'smug') {
+                    this.baseSpeed = 4.0;
+                    this.health = 5;
+                    this.maxHealth = 5;
+                    this.baseDamage = 10;
+                    this.hitCooldown = 0.9;
+                } else if (type === 'screamer') {
+                    this.baseSpeed = 3.0;
+                    this.health = 10;
+                    this.maxHealth = 10;
+                    this.baseDamage = 15;
+                    this.hitCooldown = 1.2;
+                } else {
+                    this.baseSpeed = 6.5;
+                    this.health = 1;
+                    this.maxHealth = 1;
+                    this.baseDamage = 5;
+                    this.hitCooldown = 0.5;
+                }
+
+                this.speed = this.baseSpeed * (isNight ? NIGHT_SPEED_BONUS : 1);
+                this.damage = this.baseDamage * (isNight ? NIGHT_DAMAGE_BONUS : 1);
+
+                this.currentHitCooldown = 0;
                 this.walkPhase = Math.random() * Math.PI * 2;
+                this.animTime = Math.random() * 100;
 
                 this.mesh = createEnemyModel(type);
 
@@ -1284,7 +1903,7 @@
 
                 const lightGeo = new THREE.CircleGeometry(1.0, 16);
                 const lightMat = new THREE.MeshBasicMaterial({
-                    color: type === 'smug' ? 0x44ff44 : type === 'screamer' ? 0xffffff : 0x6688ff,
+                    color: type === 'smug' ? 0xff2200 : type === 'screamer' ? 0xaaccff : 0xff0000,
                     transparent: true, opacity: 0.35, side: THREE.DoubleSide
                 });
                 this.lightRing = new THREE.Mesh(lightGeo, lightMat);
@@ -1293,54 +1912,93 @@
                 scene.add(this.lightRing);
             }
 
+            applyNightBuff() {
+                this.speed = this.baseSpeed * (isNight ? NIGHT_SPEED_BONUS : 1);
+                this.damage = this.baseDamage * (isNight ? NIGHT_DAMAGE_BONUS : 1);
+                if (isNight) {
+                    this.lightRing.material.opacity = 0.55;
+                    this.mesh.scale.set(1.05, 1.05, 1.05);
+                } else {
+                    this.lightRing.material.opacity = 0.35;
+                    this.mesh.scale.set(1, 1, 1);
+                }
+            }
+
             update(playerPos, dt) {
                 if (gameOver || paused) return;
-                this.hitCooldown = Math.max(0, this.hitCooldown - dt);
+                this.currentHitCooldown = Math.max(0, this.currentHitCooldown - dt);
+                this.animTime += dt;
 
                 const dx = playerPos.x - this.mesh.position.x;
                 const dz = playerPos.z - this.mesh.position.z;
                 const distSq = dx*dx + dz*dz;
+                const dist = Math.sqrt(distSq);
 
-                if (this.type === 'smug') {
-                    this.mesh.position.x += Math.sin(performance.now() * 0.005) * dt * 1.2;
-                }
+                const t = this.animTime;
+                const type = this.type;
 
-                if (distSq > 2.25) { // 1.5^2
-                    const dist = Math.sqrt(distSq);
+                const attackRangeSq = type === 'crier' ? 2.0 : 2.25;
+
+                if (distSq > attackRangeSq) {
                     const invDist = 1 / dist;
-                    this.mesh.position.x += dx * invDist * this.speed * dt;
-                    this.mesh.position.z += dz * invDist * this.speed * dt;
+                    let moveX = dx * invDist;
+                    let moveZ = dz * invDist;
+
+                    if (type === 'smug') {
+                        const wobble = Math.sin(t * 3) * 0.25;
+                        const nx = moveX - moveZ * wobble;
+                        const nz = moveZ + moveX * wobble;
+                        const nlen = Math.sqrt(nx*nx + nz*nz) || 1;
+                        moveX = nx / nlen;
+                        moveZ = nz / nlen;
+                    }
+
+                    this.mesh.position.x += moveX * this.speed * dt;
+                    this.mesh.position.z += moveZ * this.speed * dt;
 
                     const targetAngle = Math.atan2(dx, dz);
                     let diff = targetAngle - this.mesh.rotation.y;
                     while (diff > Math.PI)  diff -= Math.PI * 2;
                     while (diff < -Math.PI) diff += Math.PI * 2;
-                    this.mesh.rotation.y += diff * Math.min(1, dt * 8);
-                } else if (this.hitCooldown <= 0) {
-                    damagePlayer(this.damage);
-                    this.hitCooldown = 0.8;
+                    const turnSpeed = type === 'crier' ? 10 : type === 'smug' ? 5 : 3;
+                    this.mesh.rotation.y += diff * Math.min(1, dt * turnSpeed);
+                } else if (this.currentHitCooldown <= 0) {
+                    const dmg = this.baseDamage * (isNight ? NIGHT_DAMAGE_BONUS : 1);
+                    damagePlayer(dmg);
+                    this.currentHitCooldown = this.hitCooldown;
+                }
+
+                const animSpeedBoost = isNight ? 1.2 : 1;
+
+                if (type === 'smug') {
+                    this.mesh.position.y = Math.abs(Math.sin(t * 3.5 * animSpeedBoost + this.walkPhase)) * 0.1;
+                    this.mesh.rotation.z = Math.sin(t * 3.5) * 0.06;
+                    this.mesh.rotation.x = Math.sin(t * 7) * 0.03;
+                } else if (type === 'screamer') {
+                    this.mesh.position.y = Math.sin(t * 2 * animSpeedBoost) * 0.15 + 0.15;
+                    this.mesh.rotation.z = Math.sin(t * 2.5) * 0.08;
+                    this.mesh.rotation.x = Math.sin(t * 3) * 0.04;
+                    this.mesh.traverse(child => {
+                        if (child.isMesh && child.material && child.material.transparent && child.material.opacity > 0.3) {
+                            if (!child.userData.baseOpacity) child.userData.baseOpacity = child.material.opacity;
+                            child.material.opacity = child.userData.baseOpacity * (0.8 + Math.sin(t * 5) * 0.2);
+                        }
+                    });
+                } else {
+                    this.mesh.position.y = Math.abs(Math.sin(t * 10 * animSpeedBoost)) * 0.06;
+                    this.mesh.rotation.z = Math.sin(t * 8) * 0.05;
+                    const flicker = Math.sin(t * 20) > 0 ? 1 : 0.3;
+                    this.mesh.traverse(child => {
+                        if (child.isMesh && child.material && child.material.color) {
+                            if (child.material.color.getHex() === 0xff0000) {
+                                child.material.opacity = flicker;
+                            }
+                        }
+                    });
                 }
 
                 this.lightRing.position.x = this.mesh.position.x;
                 this.lightRing.position.z = this.mesh.position.z;
-
-                const t = performance.now() * 0.001;
-                const bob = Math.sin(t * 6 + this.walkPhase) * 0.05;
-                this.mesh.position.y = Math.abs(bob);
-
-                if (this.type === 'screamer') {
-                    const s = 1 + Math.sin(t * 12) * 0.05;
-                    this.mesh.scale.set(s, s, s);
-                    this.mesh.rotation.z = Math.sin(t * 8) * 0.08;
-                } else if (this.type === 'crier') {
-                    this.mesh.rotation.z = Math.sin(t * 3) * 0.05;
-                    if (this.mesh.userData.tearL) {
-                        this.mesh.userData.tearL.position.y = 1.62 + Math.sin(t * 4) * 0.05;
-                        this.mesh.userData.tearR.position.y = 1.62 + Math.sin(t * 4 + 0.5) * 0.05;
-                    }
-                } else if (this.type === 'smug') {
-                    this.mesh.rotation.z = Math.sin(t * 4) * 0.06;
-                }
             }
 
             takeDamage(dmg) {
@@ -1352,9 +2010,12 @@
                     document.getElementById('score').innerText = "💀 Убито: " + enemiesKilled;
                     updateShopCoinsBadge();
                     addKillFeed(this.type);
+
+                    // ★ Разбираем врага на разлетающиеся части + след крови
+                    dismemberEnemy(this.mesh, this.type);
+
                     scene.remove(this.mesh);
                     scene.remove(this.lightRing);
-                    // Освобождаем ресурсы? Нет — они из кэша, переиспользуются.
                     return true;
                 }
                 this.mesh.traverse(child => {
@@ -1378,11 +2039,18 @@
 
         // ==================== KILL FEED ====================
         const killFeed = document.getElementById('kill-feed');
+        const KILL_PHRASES = {
+            smug: ['Демон изгнан', 'Демон повержен', 'Демон низвергнут'],
+            screamer: ['Призрак упокоен', 'Призрак растворился', 'Призрак исчез'],
+            crier: ['Тень развеяна', 'Тень уничтожена', 'Тень поглощена светом']
+        };
+
         function addKillFeed(type) {
-            const names = { smug: '😏 Смаг', screamer: '😱 Крикун', crier: '😢 Плакса' };
+            const phrases = KILL_PHRASES[type] || ['Враг уничтожен'];
+            const phrase = phrases[Math.floor(Math.random() * phrases.length)];
             const msg = document.createElement('div');
             msg.className = 'kill-msg';
-            msg.textContent = `${names[type]} уничтожен (+10 💰)`;
+            msg.textContent = `${phrase} (+10 💰)`;
             killFeed.appendChild(msg);
             setTimeout(() => {
                 msg.style.transition = 'opacity 0.5s, transform 0.5s';
@@ -1392,15 +2060,13 @@
             }, 2000);
         }
 
-        // ==================== ПУЛИ (ПУЛ ОБЪЕКТОВ) ====================
+        // ==================== ПУЛИ ====================
         const bullets = [];
         const bulletPool = [];
-        const MAX_POOL_SIZE = 60;
+        const MAX_POOL_SIZE = 80;
 
         function acquireBullet() {
-            if (bulletPool.length > 0) {
-                return bulletPool.pop();
-            }
+            if (bulletPool.length > 0) return bulletPool.pop();
             const skin = getActiveSkin();
             const bullet = createBulletModel(skin);
             bullet.userData.skinId = skin.id;
@@ -1409,14 +2075,11 @@
 
         function releaseBullet(bullet) {
             scene.remove(bullet);
-            if (bulletPool.length < MAX_POOL_SIZE) {
-                bulletPool.push(bullet);
-            }
+            if (bulletPool.length < MAX_POOL_SIZE) bulletPool.push(bullet);
         }
 
-        // Предзаполняем пул
         (function prewarmPool() {
-            for (let i = 0; i < 30; i++) {
+            for (let i = 0; i < 40; i++) {
                 const skin = BULLET_SKINS[0];
                 const bullet = createBulletModel(skin);
                 bullet.userData.skinId = skin.id;
@@ -1434,7 +2097,6 @@
             const skin = getActiveSkin();
 
             let bullet = acquireBullet();
-            // Если сменили скин — пересоздаём модель
             if (bullet.userData.skinId !== skin.id) {
                 bullet = createBulletModel(skin);
                 bullet.userData.skinId = skin.id;
@@ -1448,7 +2110,7 @@
             );
             bullet.quaternion.copy(quat);
 
-            bullet.userData.velocity = forward.clone().multiplyScalar(40);
+            bullet.userData.velocity = forward.clone().multiplyScalar(45);
             bullet.userData.life = 0;
 
             scene.add(bullet);
@@ -1531,11 +2193,20 @@
             document.getElementById('health-fill').style.width = (hp / maxHealth * 100) + '%';
         }
 
+        function pickEnemyType() {
+            const r = Math.random();
+            const crierChance = Math.max(0.15, 0.55 - waveNumber * 0.05);
+            const smugChance = Math.max(0.25, 0.3 + waveNumber * 0.01);
+
+            if (r < crierChance) return 'crier';
+            if (r < crierChance + smugChance) return 'smug';
+            return 'screamer';
+        }
+
         function spawnEnemy() {
             if (gameOver) return;
             if (gameStarted && !paused) {
-                const types = ['smug', 'screamer', 'crier'];
-                const randomType = types[Math.floor(Math.random() * types.length)];
+                const randomType = pickEnemyType();
                 enemies.push(new Enemy(randomType));
 
                 if (enemiesKilled > 0 && enemiesKilled % 10 === 0) {
@@ -1543,8 +2214,14 @@
                     document.getElementById('wave-info').innerText = "🌊 Волна: " + waveNumber;
                 }
             }
-            setTimeout(spawnEnemy, Math.max(600, 1500 - waveNumber * 50) + Math.random() * 1500);
+            setTimeout(spawnEnemy, Math.max(700, 1600 - waveNumber * 50) + Math.random() * 1500);
         }
+
+        const ENEMY_HIT_RADIUS_SQ = {
+            smug: 1.4 * 1.4,
+            screamer: 1.6 * 1.6,
+            crier: 1.2 * 1.2
+        };
 
         function updateBullets(dt) {
             for (let i = bullets.length - 1; i >= 0; i--) {
@@ -1562,19 +2239,23 @@
                     continue;
                 }
 
+                let hit = false;
                 for (let j = enemies.length - 1; j >= 0; j--) {
                     let enemy = enemies[j];
-                    // Проверка по XY+Z (быстрая)
                     const dx = bullet.position.x - enemy.mesh.position.x;
-                    const dy = bullet.position.y - (enemy.mesh.position.y + 1.0);
+                    const dy = bullet.position.y - (enemy.mesh.position.y + 1.2);
                     const dz = bullet.position.z - enemy.mesh.position.z;
-                    if (dx*dx + dy*dy + dz*dz < 1.69) { // 1.3^2
+                    const rSq = ENEMY_HIT_RADIUS_SQ[enemy.type] || 1.69;
+
+                    if (dx*dx + dy*dy + dz*dz < rSq) {
                         releaseBullet(bullet);
                         bullets.splice(i, 1);
                         if (enemy.takeDamage(1)) enemies.splice(j, 1);
+                        hit = true;
                         break;
                     }
                 }
+                if (hit) continue;
             }
         }
 
@@ -1583,6 +2264,7 @@
         const nightOverlay = document.getElementById('night-overlay');
         const hudEl = document.getElementById('hud');
         const timeNotification = document.getElementById('time-notification');
+        const nightBuffEl = document.getElementById('night-buff');
 
         function lerpColor(a, b, t) {
             return new THREE.Color(
@@ -1605,41 +2287,88 @@
             }, 2000);
         }
 
+        function applyNightBuffToAll() {
+            for (let i = 0; i < enemies.length; i++) {
+                enemies[i].applyNightBuff();
+            }
+        }
+
         function updateDayNight(dt) {
             if (!settings.dayNightCycle) return;
 
             worldTime += dt;
             if (worldTime >= TOTAL_DURATION) worldTime -= TOTAL_DURATION;
 
-            let t = 0;
-            let newPeriod;
+            let phaseT;
+            let newPhase;
 
-            if (worldTime < DAY_DURATION) {
-                newPeriod = 'day';
-                const remaining = DAY_DURATION - worldTime;
-                if (remaining < 30) t = (30 - remaining) / 30 * 0.7;
-                else t = 0;
+            if (worldTime < PHASE_DAY) {
+                newPhase = 'day';
+                phaseT = worldTime / PHASE_DAY;
+            } else if (worldTime < PHASE_DAY + PHASE_SUNSET) {
+                newPhase = 'sunset';
+                phaseT = (worldTime - PHASE_DAY) / PHASE_SUNSET;
+            } else if (worldTime < PHASE_DAY + PHASE_SUNSET + PHASE_NIGHT) {
+                newPhase = 'night';
+                phaseT = (worldTime - PHASE_DAY - PHASE_SUNSET) / PHASE_NIGHT;
             } else {
-                newPeriod = 'night';
-                const nightTime = worldTime - DAY_DURATION;
-                const remaining = NIGHT_DURATION - nightTime;
-                if (remaining > NIGHT_DURATION - 30) {
-                    const into = NIGHT_DURATION - remaining;
-                    t = 1 - (into / 30) * 0.7;
-                } else if (remaining < 30) {
-                    t = 0.7 + (30 - remaining) / 30 * 0.3;
-                } else t = 1;
+                newPhase = 'dawn';
+                phaseT = (worldTime - PHASE_DAY - PHASE_SUNSET - PHASE_NIGHT) / PHASE_DAWN;
             }
 
-            if (newPeriod !== currentPeriod) {
-                currentPeriod = newPeriod;
-                if (newPeriod === 'night') showTimeNotification('🌙 НОЧЬ', '#aaccff');
-                else showTimeNotification('☀️ ДЕНЬ', '#ffdd44');
+            if (newPhase !== currentPhase) {
+                currentPhase = newPhase;
+
+                if (newPhase === 'night') {
+                    isNight = true;
+                    showTimeNotification('🌙 НОЧЬ', '#aaccff');
+                    nightBuffEl.style.display = 'block';
+                } else if (newPhase === 'day') {
+                    isNight = false;
+                    showTimeNotification('☀️ УТРО', '#ffdd44');
+                    nightBuffEl.style.display = 'none';
+                } else if (newPhase === 'sunset') {
+                    isNight = false;
+                    showTimeNotification('🌅 ЗАКАТ', '#ff8844');
+                    nightBuffEl.style.display = 'none';
+                } else if (newPhase === 'dawn') {
+                    isNight = false;
+                    showTimeNotification('🌄 РАССВЕТ', '#ffaa88');
+                    nightBuffEl.style.display = 'none';
+                }
+
+                applyNightBuffToAll();
+            }
+
+            let t = 0;
+            if (currentPhase === 'day') {
+                t = 0;
+            } else if (currentPhase === 'sunset') {
+                t = phaseT;
+            } else if (currentPhase === 'night') {
+                t = 1;
+            } else if (currentPhase === 'dawn') {
+                t = 1 - phaseT;
             }
 
             let skyColor;
-            if (t < 0.5) skyColor = lerpColor(daySky, sunsetSky, t * 2);
-            else skyColor = lerpColor(sunsetSky, nightSky, (t - 0.5) * 2);
+            if (currentPhase === 'day') {
+                skyColor = daySky.clone();
+            } else if (currentPhase === 'sunset') {
+                if (phaseT < 0.5) {
+                    skyColor = lerpColor(daySky, sunsetSky, phaseT * 2);
+                } else {
+                    skyColor = lerpColor(sunsetSky, nightSky, (phaseT - 0.5) * 2);
+                }
+            } else if (currentPhase === 'night') {
+                skyColor = nightSky.clone();
+            } else {
+                if (phaseT < 0.5) {
+                    skyColor = lerpColor(nightSky, dawnSky, phaseT * 2);
+                } else {
+                    skyColor = lerpColor(dawnSky, daySky, (phaseT - 0.5) * 2);
+                }
+            }
 
             scene.background.copy(skyColor);
             scene.fog.color.copy(skyColor);
@@ -1656,25 +2385,40 @@
             stars.rotation.y += dt * 0.005;
             nightOverlay.style.opacity = t * 0.4;
 
-            if (t < 0.3) {
-                timeInfo.textContent = '☀️ День';
-                timeInfo.style.color = '#ffdd88';
-                hudEl.style.borderLeftColor = '#66aaff';
-            } else if (t < 0.7) {
-                timeInfo.textContent = '🌅 Закат';
-                timeInfo.style.color = '#ff8844';
-                hudEl.style.borderLeftColor = '#ff8844';
+            let phaseName, phaseColor, borderColor;
+            if (currentPhase === 'day') {
+                phaseName = '☀️ День';
+                phaseColor = '#ffdd88';
+                borderColor = '#66aaff';
+            } else if (currentPhase === 'sunset') {
+                phaseName = '🌅 Закат';
+                phaseColor = '#ff8844';
+                borderColor = '#ff8844';
+            } else if (currentPhase === 'night') {
+                phaseName = '🌙 Ночь';
+                phaseColor = '#aaccff';
+                borderColor = '#aaccff';
             } else {
-                timeInfo.textContent = '🌙 Ночь';
-                timeInfo.style.color = '#aaccff';
-                hudEl.style.borderLeftColor = '#aaccff';
+                phaseName = '🌄 Рассвет';
+                phaseColor = '#ffaa88';
+                borderColor = '#ffaa88';
             }
+            timeInfo.textContent = phaseName;
+            timeInfo.style.color = phaseColor;
+            hudEl.style.borderLeftColor = borderColor;
 
-            const currentPhaseTime = worldTime < DAY_DURATION
-                ? DAY_DURATION - worldTime
-                : NIGHT_DURATION - (worldTime - DAY_DURATION);
-            const mins = Math.floor(currentPhaseTime / 60);
-            const secs = Math.floor(currentPhaseTime % 60);
+            let phaseRemaining;
+            if (currentPhase === 'day') {
+                phaseRemaining = PHASE_DAY - worldTime;
+            } else if (currentPhase === 'sunset') {
+                phaseRemaining = PHASE_DAY + PHASE_SUNSET - worldTime;
+            } else if (currentPhase === 'night') {
+                phaseRemaining = PHASE_DAY + PHASE_SUNSET + PHASE_NIGHT - worldTime;
+            } else {
+                phaseRemaining = TOTAL_DURATION - worldTime;
+            }
+            const mins = Math.floor(phaseRemaining / 60);
+            const secs = Math.floor(phaseRemaining % 60);
             timeInfo.textContent += ` (${mins}:${secs.toString().padStart(2, '0')})`;
         }
 
@@ -1717,6 +2461,7 @@
                 updateDayNight(dt);
                 enemies.forEach(enemy => enemy.update(camera.position, dt));
                 updateBullets(dt);
+                updateBodyParts(dt);
             }
 
             renderer.render(scene, camera);
@@ -1749,6 +2494,7 @@
             shopPanel.style.display = 'none';
             settingsPanel.style.display = 'none';
             pauseMenu.style.display = 'none';
+            promoModal.style.display = 'none';
         }
 
         function startGame() {
@@ -1756,11 +2502,13 @@
             shopPanel.style.display = 'none';
             settingsPanel.style.display = 'none';
             pauseMenu.style.display = 'none';
+            promoModal.style.display = 'none';
 
             hud.style.display = 'block';
             crosshair.style.display = 'block';
             controls.style.display = 'block';
             killFeedEl.style.display = 'flex';
+            nightBuffEl.style.display = 'none';
 
             gameStarted = true;
             gameOver = false;
@@ -1770,7 +2518,8 @@
             enemiesKilled = 0;
             waveNumber = 1;
             worldTime = 0;
-            currentPeriod = 'day';
+            currentPhase = 'day';
+            isNight = false;
             isShooting = false;
 
             camera.position.set(0, 1.6, 0);
@@ -1786,6 +2535,12 @@
             bullets.forEach(b => releaseBullet(b));
             bullets.length = 0;
 
+            // Очищаем части тела и следы крови
+            bodyParts.forEach(p => scene.remove(p));
+            bodyParts.length = 0;
+            bloodDecals.forEach(d => scene.remove(d));
+            bloodDecals.length = 0;
+
             updateHealthUI();
             document.getElementById('score').innerText = "💀 Убито: 0";
             document.getElementById('coins').innerText = "💰 Монеты: " + coins;
@@ -1794,6 +2549,12 @@
 
             enterFullscreen();
             document.body.requestPointerLock();
+
+            setTimeout(() => {
+                if (gameStarted && !gameOver && !paused) {
+                    enemies.push(new Enemy(pickEnemyType()));
+                }
+            }, 800);
         }
 
         function togglePause() {
@@ -1837,6 +2598,7 @@
             controls.style.display = 'none';
             killFeedEl.style.display = 'none';
             nightOverlay.style.opacity = '0';
+            nightBuffEl.style.display = 'none';
             showMenu();
         });
 
@@ -1920,13 +2682,6 @@
             sensVal.textContent = settings.sensitivity.toFixed(1);
         });
 
-        const volInput = document.getElementById('vol');
-        const volVal = document.getElementById('vol-val');
-        volInput.addEventListener('input', () => {
-            settings.volume = parseInt(volInput.value);
-            volVal.textContent = settings.volume;
-        });
-
         const qualityBtns = document.querySelectorAll('.quality-btn');
         qualityBtns.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -1989,15 +2744,18 @@
                 hemiLight.intensity = 0.6;
                 stars.material.opacity = 0;
                 nightOverlay.style.opacity = 0;
+                isNight = false;
+                nightBuffEl.style.display = 'none';
                 timeInfo.textContent = '☀️ День';
                 timeInfo.style.color = '#ffdd88';
                 hudEl.style.borderLeftColor = '#66aaff';
+                applyNightBuffToAll();
             }
         });
 
         // ==================== СТАРТ ====================
         animate();
-        setTimeout(spawnEnemy, 3000);
+        spawnEnemy();
 
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
