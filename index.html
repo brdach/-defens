@@ -49,17 +49,12 @@
             color: #ffdd88; font-weight: 700;
             transition: color 0.5s;
         }
-        #night-buff {
+        #flashlight-status {
             font-size: 12px; margin-top: 6px;
-            color: #ff5555; font-weight: 700;
+            color: #ffbb77; font-weight: 700;
             letter-spacing: 1px;
-            text-shadow: 0 0 10px rgba(255,50,50,0.8);
+            text-shadow: 0 0 8px rgba(255,180,100,0.6);
             display: none;
-            animation: buff-pulse 1.5s ease-in-out infinite;
-        }
-        @keyframes buff-pulse {
-            0%, 100% { opacity: 0.6; }
-            50%      { opacity: 1; }
         }
 
         /* ============ CROSSHAIR ============ */
@@ -224,29 +219,52 @@
             box-shadow: 0 8px 30px rgba(255,200,50,0.5), 0 0 20px rgba(255,200,50,0.3) inset;
             color: #ffdd88;
         }
-        .menu-btn.promo {
-            width: 220px;
-            padding: 12px 20px;
-            font-size: 15px;
-            letter-spacing: 2px;
-            border-color: rgba(255,80,80,0.5);
-            background: linear-gradient(135deg, rgba(60,15,15,0.9), rgba(30,8,8,0.9));
-        }
-        .menu-btn.promo:hover {
-            border-color: rgba(255,100,100,1);
-            box-shadow: 0 8px 30px rgba(255,60,60,0.5), 0 0 20px rgba(255,60,60,0.3) inset;
-            color: #ffbbbb;
-        }
         .menu-footer {
             position: absolute; bottom: 20px;
             color: #553333; font-size: 12px;
             letter-spacing: 2px; z-index: 1;
         }
 
-        /* ============ ОКНО ПРОМОКОДА (левый верхний угол) ============ */
-        #promo-modal {
+        /* ============ КНОПКА ПРОМОКОДЫ В ЛЕВОМ ВЕРХНЕМ УГЛУ ============ */
+        #btn-promo-corner {
             position: absolute;
             top: 20px; left: 20px;
+            z-index: 105;
+            padding: 14px 24px;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            font-family: inherit;
+            color: #fff;
+            background: linear-gradient(135deg, rgba(60,15,15,0.95), rgba(30,8,8,0.95));
+            border: 2px solid rgba(255,80,80,0.7);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.7), 0 0 15px rgba(255,50,50,0.3);
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+        }
+        #btn-promo-corner::before {
+            content: ''; position: absolute;
+            top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,50,50,0.25), transparent);
+            transition: left 0.5s;
+        }
+        #btn-promo-corner:hover::before { left: 100%; }
+        #btn-promo-corner:hover {
+            transform: translateY(-2px) scale(1.04);
+            border-color: rgba(255,100,100,1);
+            box-shadow: 0 8px 30px rgba(255,50,50,0.6), 0 0 20px rgba(255,50,50,0.4) inset;
+            color: #ffbbbb;
+        }
+        #btn-promo-corner:active { transform: translateY(0) scale(0.98); }
+
+        /* ============ ОКНО ПРОМОКОДА ============ */
+        #promo-modal {
+            position: absolute;
+            top: 90px; left: 20px;
             display: none;
             z-index: 150;
         }
@@ -578,6 +596,35 @@
         .toggle.on { background: rgba(255,60,60,0.4); border-color: #ff5555; }
         .toggle.on::after { left: 26px; background: #ff5555; box-shadow: 0 0 10px #ff5555; }
 
+        .fullscreen-btn {
+            padding: 10px 24px;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-family: inherit;
+            color: #fff;
+            background: linear-gradient(135deg, #aa2a2a, #7a1a1a);
+            border: 2px solid rgba(255,80,80,0.7);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 0 15px rgba(255,50,50,0.4);
+            white-space: nowrap;
+        }
+        .fullscreen-btn:hover {
+            background: linear-gradient(135deg, #cc3a3a, #9a2a2a);
+            border-color: #ff8888;
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(255,50,50,0.7);
+        }
+        .fullscreen-btn:active { transform: translateY(0); }
+        .fullscreen-btn.active {
+            background: linear-gradient(135deg, #2a8a2a, #1a5a1a);
+            border-color: #66ff88;
+            box-shadow: 0 0 20px rgba(80,255,120,0.6);
+        }
+
         .back-btn {
             margin-top: 25px; padding: 14px 40px;
             font-size: 15px; font-weight: 700;
@@ -672,7 +719,6 @@
         @media (max-width: 500px) {
             .menu-title { font-size: 42px; letter-spacing: 2px; }
             .menu-btn { width: 260px; font-size: 17px; padding: 14px 20px; }
-            .menu-btn.promo { width: 180px; font-size: 13px; padding: 10px 16px; }
             .panel h2 { font-size: 32px; }
             .setting-row label { min-width: auto; font-size: 13px; }
             #time-notification { font-size: 32px; letter-spacing: 4px; }
@@ -682,6 +728,7 @@
             #promo-modal-box h2 { font-size: 16px; letter-spacing: 3px; }
             #promo-modal-input { font-size: 12px; padding: 9px 12px; }
             .promo-modal-btn { padding: 8px 16px; font-size: 11px; }
+            #btn-promo-corner { padding: 10px 16px; font-size: 12px; }
         }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -699,13 +746,13 @@
         <div class="menu-buttons">
             <button class="menu-btn play" id="btn-play">▶ Играть</button>
             <button class="menu-btn shop" id="btn-shop">🛒 Магазин</button>
-            <button class="menu-btn promo" id="btn-promo">🎁 Промокоды</button>
             <button class="menu-btn"      id="btn-settings">⚙ Настройки</button>
         </div>
-        <div class="menu-footer">v3.6 • Fullscreen Lock • Made with Three.js</div>
+        <div class="menu-footer">v4.0 • Fullscreen Lock • Made with Three.js</div>
     </div>
 
-    <!-- ★ ОКНО ПРОМОКОДА в левом верхнем углу -->
+    <button id="btn-promo-corner">🎁 Промокоды</button>
+
     <div id="promo-modal">
         <div id="promo-modal-box">
             <button id="promo-modal-close">✕</button>
@@ -773,6 +820,10 @@
                 <label>🌗 Цикл дня и ночи</label>
                 <div class="toggle on" id="toggle-daynight"></div>
             </div>
+            <div class="setting-row">
+                <label>🖥️ Полноэкранный режим</label>
+                <button class="fullscreen-btn" id="btn-fullscreen">Включить</button>
+            </div>
         </div>
         <button class="back-btn" id="settings-back">← Назад</button>
     </div>
@@ -792,7 +843,7 @@
         <div id="coins">💰 Монеты: 0</div>
         <div id="wave-info">🌊 Волна: 1</div>
         <div id="time-info">☀️ День</div>
-        <div id="night-buff">🌙 НОЧНОЙ БАФФ: +10% СКОРОСТЬ, +10% УРОН</div>
+        <div id="flashlight-status">🔦 Фонарь: ВКЛ</div>
     </div>
     <div id="night-overlay"></div>
     <div id="crosshair"><div id="crosshair-dot"></div></div>
@@ -800,12 +851,10 @@
     <div id="kill-feed"></div>
     <div id="time-notification"></div>
     <div id="gameover">ТЫ ПОГИБ!<br><span style="font-size:22px; color:white; letter-spacing:2px;">Обнови страницу для рестарта</span></div>
-    <div id="controls">WASD — движение • Мышь — обзор • ЛКМ (зажать) — авто-стрельба • ESC — пауза</div>
+    <div id="controls">WASD — движение • Пробел — прыжок • F — фонарь • Мышь — обзор • ЛКМ — стрельба • ESC — пауза</div>
 
     <script>
         // ==================== ПОЛНОЭКРАННЫЙ РЕЖИМ ====================
-        // ★ Убрано автоматическое расширение экрана — фуллскрин запрашивается
-        // только при старте игры и больше не возвращается принудительно
         let fullscreenLocked = false;
 
         function enterFullscreen() {
@@ -817,23 +866,36 @@
             if (req) {
                 req.call(el).then(() => {
                     fullscreenLocked = true;
+                    updateFullscreenButton();
                 }).catch(err => {
                     console.warn('Fullscreen отклонён:', err);
                 });
             }
         }
 
-        // ★ Больше НЕ возвращаем фуллскрин автоматически — если пользователь вышел, значит так и надо
-        function handleFullscreenChange() {
-            const isFs = !!(document.fullscreenElement ||
-                            document.webkitFullscreenElement ||
-                            document.mozFullScreenElement ||
-                            document.msFullscreenElement);
-            if (!isFs) {
-                fullscreenLocked = false; // просто сбрасываем флаг
-            } else {
-                fullscreenLocked = true;
+        function exitFullscreen() {
+            const exit = document.exitFullscreen ||
+                         document.webkitExitFullscreen ||
+                         document.mozCancelFullScreen ||
+                         document.msExitFullscreen;
+            if (exit && (document.fullscreenElement ||
+                         document.webkitFullscreenElement ||
+                         document.mozFullScreenElement ||
+                         document.msFullscreenElement)) {
+                exit.call(document);
             }
+        }
+
+        function isFullscreen() {
+            return !!(document.fullscreenElement ||
+                      document.webkitFullscreenElement ||
+                      document.mozFullScreenElement ||
+                      document.msFullscreenElement);
+        }
+
+        function handleFullscreenChange() {
+            fullscreenLocked = isFullscreen();
+            updateFullscreenButton();
         }
 
         ['fullscreenchange', 'webkitfullscreenchange',
@@ -841,17 +903,35 @@
             document.addEventListener(evt, handleFullscreenChange);
         });
 
-        // ★ Блокируем только F11 (не даём выйти из игры случайно)
-        // Escape больше не блокируем, чтобы игрок мог выйти из фуллскрина
+        function updateFullscreenButton() {
+            const btn = document.getElementById('btn-fullscreen');
+            if (!btn) return;
+            if (isFullscreen()) {
+                btn.textContent = 'Выключить';
+                btn.classList.add('active');
+            } else {
+                btn.textContent = 'Включить';
+                btn.classList.remove('active');
+            }
+        }
+
+        document.getElementById('btn-fullscreen').addEventListener('click', () => {
+            if (isFullscreen()) {
+                exitFullscreen();
+            } else {
+                enterFullscreen();
+            }
+        });
+
+        updateFullscreenButton();
+
         function blockFullscreenExitKeys(e) {
-            if (!fullscreenLocked) return;
             if (e.key === 'F11' || e.code === 'F11') {
                 e.preventDefault();
                 e.stopPropagation();
                 return false;
             }
         }
-
         window.addEventListener('keydown', blockFullscreenExitKeys, true);
         window.addEventListener('keyup', blockFullscreenExitKeys, true);
 
@@ -957,7 +1037,7 @@
             promoModalStatus.className = '';
         }
 
-        document.getElementById('btn-promo').addEventListener('click', openPromoModal);
+        document.getElementById('btn-promo-corner').addEventListener('click', openPromoModal);
         document.getElementById('promo-modal-close').addEventListener('click', closePromoModal);
         document.getElementById('promo-modal-cancel').addEventListener('click', closePromoModal);
         document.getElementById('promo-modal-apply').addEventListener('click', () => {
@@ -1109,7 +1189,7 @@
         const scene = new THREE.Scene();
         const DAY_SKY = new THREE.Color(0x87CEEB);
         scene.background = DAY_SKY.clone();
-        scene.fog = new THREE.FogExp2(0x87CEEB, settings.fogDensity);
+        scene.fog = new THREE.FogExp2(0x87CEEB, 0.028);
 
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 500);
         camera.position.y = 1.6;
@@ -1128,13 +1208,13 @@
         document.body.appendChild(renderer.domElement);
 
         // ==================== ОСВЕЩЕНИЕ ====================
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.35);
         scene.add(ambientLight);
 
-        const hemiLight = new THREE.HemisphereLight(0x87CEEB, 0x556B2F, 0.6);
+        const hemiLight = new THREE.HemisphereLight(0x6a7a8a, 0x1a1a1a, 0.5);
         scene.add(hemiLight);
 
-        const sunLight = new THREE.DirectionalLight(0xffffff, 1.0);
+        const sunLight = new THREE.DirectionalLight(0xddddcc, 0.85);
         sunLight.position.set(80, 120, 50);
         sunLight.castShadow = settings.quality > 0;
         sunLight.shadow.mapSize.width = settings.quality === 2 ? 2048 : 1024;
@@ -1147,9 +1227,45 @@
         sunLight.shadow.camera.far = 200;
         scene.add(sunLight);
 
-        const moonLight = new THREE.DirectionalLight(0x8899ff, 0.0);
+        const moonLight = new THREE.DirectionalLight(0x6677aa, 0.0);
         moonLight.position.set(-80, 100, -50);
         scene.add(moonLight);
+
+        // ★ ТЁПЛЫЙ ФОНАРЬ (клавиша F)
+        const flashlight = new THREE.SpotLight(0xffbb66, 3.0, 45, Math.PI / 4.5, 0.6, 1.5);
+        flashlight.position.set(0.25, -0.15, 0.1);
+        flashlight.target.position.set(0, -0.1, -1);
+        flashlight.castShadow = false;
+        camera.add(flashlight);
+        camera.add(flashlight.target);
+
+        const flashlightAmbient = new THREE.PointLight(0xffaa55, 0.55, 10);
+        flashlightAmbient.position.set(0, 0, 0);
+        camera.add(flashlightAmbient);
+
+        scene.add(camera);
+
+        let flashlightOn = false;
+        flashlight.visible = false;
+        flashlightAmbient.visible = false;
+
+        function toggleFlashlight() {
+            flashlightOn = !flashlightOn;
+            flashlight.visible = flashlightOn;
+            flashlightAmbient.visible = flashlightOn;
+            const statusEl = document.getElementById('flashlight-status');
+            if (statusEl) {
+                if (flashlightOn) {
+                    statusEl.style.display = 'block';
+                    statusEl.textContent = '🔦 Фонарь: ВКЛ';
+                    statusEl.style.color = '#ffbb77';
+                } else {
+                    statusEl.style.display = 'block';
+                    statusEl.textContent = '🔦 Фонарь: ВЫКЛ';
+                    statusEl.style.color = '#886644';
+                }
+            }
+        }
 
         // ==================== ИГРОВЫЕ ПЕРЕМЕННЫЕ ====================
         let health = 100;
@@ -1171,6 +1287,12 @@
         let lastShotTime = 0;
         let isShooting = false;
 
+        let verticalVelocity = 0;
+        let playerHeight = 1.6;
+        const GRAVITY = 22;
+        const JUMP_FORCE = 9;
+        let isGrounded = true;
+
         // ==================== ЦИКЛ ДНЯ / НОЧИ ====================
         const PHASE_DAY = 180;
         const PHASE_SUNSET = 30;
@@ -1181,24 +1303,33 @@
         let worldTime = 0;
         let currentPhase = 'day';
 
-        const daySky = new THREE.Color(0x87CEEB);
-        const sunsetSky = new THREE.Color(0xff8855);
-        const nightSky = new THREE.Color(0x0a0a2a);
-        const dawnSky = new THREE.Color(0xffaa88);
+        const daySky = new THREE.Color(0x7a8a9a);
+        const sunsetSky = new THREE.Color(0x884422);
+        const nightSky = new THREE.Color(0x050510);
+        const dawnSky = new THREE.Color(0x664433);
 
         // ==================== ОКРУЖЕНИЕ ====================
         function createGroundTexture() {
             const canvas = document.createElement('canvas');
             canvas.width = 256; canvas.height = 256;
             const ctx = canvas.getContext('2d');
-            ctx.fillStyle = '#2a3a1a';
+            ctx.fillStyle = '#1a2010';
             ctx.fillRect(0, 0, 256, 256);
-            for (let i = 0; i < 1500; i++) {
+            for (let i = 0; i < 2000; i++) {
                 const x = Math.random() * 256;
                 const y = Math.random() * 256;
-                const shade = 20 + Math.random() * 50;
-                ctx.fillStyle = `rgb(${shade - 10}, ${shade + 30}, ${shade - 20})`;
+                const shade = 15 + Math.random() * 35;
+                ctx.fillStyle = `rgb(${shade}, ${shade + 15}, ${shade - 5})`;
                 ctx.fillRect(x, y, 2, 3);
+            }
+            for (let i = 0; i < 40; i++) {
+                const x = Math.random() * 256;
+                const y = Math.random() * 256;
+                const r = 5 + Math.random() * 15;
+                ctx.fillStyle = `rgba(30, 20, 10, ${0.3 + Math.random() * 0.3})`;
+                ctx.beginPath();
+                ctx.arc(x, y, r, 0, Math.PI * 2);
+                ctx.fill();
             }
             return new THREE.CanvasTexture(canvas);
         }
@@ -1230,7 +1361,7 @@
             }
             geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
             const mat = new THREE.PointsMaterial({
-                color: 0xffffff, size: 1.5,
+                color: 0xaaaacc, size: 1.5,
                 transparent: true, opacity: 0.0, sizeAttenuation: false
             });
             const points = new THREE.Points(geo, mat);
@@ -1260,7 +1391,7 @@
             }
             geo.computeVertexNormals();
             const mat = new THREE.MeshStandardMaterial({
-                color: 0x4a4a50, roughness: 0.95, flatShading: true
+                color: 0x2a2a30, roughness: 0.98, flatShading: true
             });
             const rock = new THREE.Mesh(geo, mat);
             rock.castShadow = settings.quality > 0;
@@ -1270,65 +1401,69 @@
 
         function createDeadTree() {
             const group = new THREE.Group();
-            const trunkHeight = 3.5 + Math.random() * 2.0;
-            const trunkGeo = new THREE.CylinderGeometry(0.22, 0.42, trunkHeight, 6);
+            const trunkHeight = 4.0 + Math.random() * 3.0;
+            const trunkGeo = new THREE.CylinderGeometry(0.18, 0.48, trunkHeight, 6);
             const trunkMat = new THREE.MeshStandardMaterial({
-                color: 0x1f1208, roughness: 1, flatShading: true
+                color: 0x0d0805, roughness: 1, flatShading: true
             });
             const trunk = new THREE.Mesh(trunkGeo, trunkMat);
             trunk.position.y = trunkHeight / 2;
+            trunk.rotation.z = (Math.random() - 0.5) * 0.15;
+            trunk.rotation.x = (Math.random() - 0.5) * 0.15;
             trunk.castShadow = settings.quality > 0;
             group.add(trunk);
 
             const branchMat = new THREE.MeshStandardMaterial({
-                color: 0x150b03, roughness: 1, flatShading: true
+                color: 0x080402, roughness: 1, flatShading: true
             });
-            const branchCount = 5 + Math.floor(Math.random() * 4);
+            const branchCount = 7 + Math.floor(Math.random() * 6);
             for (let i = 0; i < branchCount; i++) {
-                const branchLen = 1.0 + Math.random() * 1.5;
-                const branchGeo = new THREE.CylinderGeometry(0.04, 0.11, branchLen, 5);
+                const branchLen = 1.2 + Math.random() * 2.0;
+                const branchGeo = new THREE.CylinderGeometry(0.03, 0.12, branchLen, 5);
                 const branch = new THREE.Mesh(branchGeo, branchMat);
 
-                const branchY = trunkHeight * (0.5 + Math.random() * 0.45);
+                const branchY = trunkHeight * (0.35 + Math.random() * 0.55);
                 const angle = Math.random() * Math.PI * 2;
-                const tilt = 0.5 + Math.random() * 0.8;
+                const tilt = 0.5 + Math.random() * 1.0;
 
                 branch.position.set(
-                    Math.cos(angle) * 0.2,
+                    Math.cos(angle) * 0.25,
                     branchY,
-                    Math.sin(angle) * 0.2
+                    Math.sin(angle) * 0.25
                 );
                 branch.rotation.z = Math.cos(angle) * tilt;
                 branch.rotation.x = -Math.sin(angle) * tilt;
                 branch.castShadow = settings.quality > 0;
                 group.add(branch);
 
-                if (Math.random() > 0.4) {
-                    const twigGeo = new THREE.CylinderGeometry(0.02, 0.05, 0.6 + Math.random() * 0.5, 4);
+                const twigCount = 1 + Math.floor(Math.random() * 2);
+                for (let k = 0; k < twigCount; k++) {
+                    const twigGeo = new THREE.CylinderGeometry(0.015, 0.04, 0.6 + Math.random() * 0.6, 4);
                     const twig = new THREE.Mesh(twigGeo, branchMat);
                     twig.position.set(
-                        Math.cos(angle) * (0.2 + branchLen * 0.4),
-                        branchY + Math.sin(tilt) * branchLen * 0.4,
-                        Math.sin(angle) * (0.2 + branchLen * 0.4)
+                        Math.cos(angle) * (0.25 + branchLen * 0.35),
+                        branchY + Math.sin(tilt) * branchLen * 0.35,
+                        Math.sin(angle) * (0.25 + branchLen * 0.35)
                     );
-                    twig.rotation.z = Math.cos(angle) * (tilt + 0.6);
-                    twig.rotation.x = -Math.sin(angle) * (tilt + 0.6);
+                    twig.rotation.z = Math.cos(angle) * (tilt + 0.7);
+                    twig.rotation.x = -Math.sin(angle) * (tilt + 0.7);
                     twig.castShadow = settings.quality > 0;
                     group.add(twig);
                 }
             }
 
-            if (Math.random() > 0.5) {
-                const rootGeo = new THREE.CylinderGeometry(0.06, 0.14, 0.8, 5);
+            const rootCount = 2 + Math.floor(Math.random() * 3);
+            for (let i = 0; i < rootCount; i++) {
+                const rootGeo = new THREE.CylinderGeometry(0.05, 0.16, 1.0, 5);
                 const root = new THREE.Mesh(rootGeo, branchMat);
-                const rootAngle = Math.random() * Math.PI * 2;
+                const rootAngle = (i / rootCount) * Math.PI * 2 + Math.random() * 0.5;
                 root.position.set(
-                    Math.cos(rootAngle) * 0.35,
-                    0.15,
-                    Math.sin(rootAngle) * 0.35
+                    Math.cos(rootAngle) * 0.4,
+                    0.2,
+                    Math.sin(rootAngle) * 0.4
                 );
-                root.rotation.z = Math.cos(rootAngle) * 1.2;
-                root.rotation.x = -Math.sin(rootAngle) * 1.2;
+                root.rotation.z = Math.cos(rootAngle) * 1.3;
+                root.rotation.x = -Math.sin(rootAngle) * 1.3;
                 group.add(root);
             }
 
@@ -1338,17 +1473,17 @@
         function createDeadBush() {
             const group = new THREE.Group();
             const mat = new THREE.MeshStandardMaterial({
-                color: 0x2a1a0a, roughness: 1, flatShading: true
+                color: 0x120a05, roughness: 1, flatShading: true
             });
-            const spikeCount = 5 + Math.floor(Math.random() * 3);
+            const spikeCount = 6 + Math.floor(Math.random() * 5);
             for (let i = 0; i < spikeCount; i++) {
-                const spikeGeo = new THREE.ConeGeometry(0.06, 0.5 + Math.random() * 0.4, 4);
+                const spikeGeo = new THREE.ConeGeometry(0.05, 0.6 + Math.random() * 0.6, 4);
                 const spike = new THREE.Mesh(spikeGeo, mat);
                 const angle = Math.random() * Math.PI * 2;
-                const radius = Math.random() * 0.4;
-                spike.position.set(Math.cos(angle) * radius, 0.2, Math.sin(angle) * radius);
-                spike.rotation.z = (Math.random() - 0.5) * 0.8;
-                spike.rotation.x = (Math.random() - 0.5) * 0.8;
+                const radius = Math.random() * 0.5;
+                spike.position.set(Math.cos(angle) * radius, 0.25, Math.sin(angle) * radius);
+                spike.rotation.z = (Math.random() - 0.5) * 1.0;
+                spike.rotation.x = (Math.random() - 0.5) * 1.0;
                 spike.castShadow = settings.quality > 0;
                 group.add(spike);
             }
@@ -1361,7 +1496,7 @@
             }
             colliders.length = 0;
 
-            const rockCount = settings.details ? 50 : 12;
+            const rockCount = settings.details ? 45 : 12;
             for (let i = 0; i < rockCount; i++) {
                 const rock = createRock();
                 let x, z;
@@ -1377,21 +1512,21 @@
                 addCollider(x, z, Math.max(size.x, size.z) * 0.55);
             }
 
-            const treeCount = settings.details ? 90 : 25;
+            const treeCount = settings.details ? 150 : 35;
             for (let i = 0; i < treeCount; i++) {
                 const tree = createDeadTree();
                 let x, z;
                 do {
                     x = Math.random() * 180 - 90;
                     z = Math.random() * 180 - 90;
-                } while (Math.sqrt(x * x + z * z) < 12);
+                } while (Math.sqrt(x * x + z * z) < 10);
                 tree.position.set(x, 0, z);
                 tree.rotation.y = Math.random() * Math.PI * 2;
                 worldDetails.add(tree);
                 addCollider(x, z, 0.5);
             }
 
-            const bushCount = settings.details ? 60 : 15;
+            const bushCount = settings.details ? 80 : 20;
             for (let i = 0; i < bushCount; i++) {
                 const bush = createDeadBush();
                 bush.position.set(
@@ -1676,11 +1811,9 @@
             return createCrierModel();
         }
 
-        // ==================== РАЗЛЕТАЮЩИЕСЯ ЧАСТИ ТЕЛА ПРИ УБИЙСТВЕ ====================
-        // ★ При убийстве врага его 3D-модель разбирается на части и они разлетаются
+        // ==================== РАЗЛЕТАЮЩИЕСЯ ЧАСТИ ТЕЛА ====================
         const bodyParts = [];
 
-        // ★ Пул геометрий для обломков (переиспользуются)
         const PART_GEOMETRIES = [
             new THREE.SphereGeometry(0.15, 6, 6),
             new THREE.BoxGeometry(0.18, 0.18, 0.18),
@@ -1689,14 +1822,12 @@
             new THREE.ConeGeometry(0.1, 0.2, 4)
         ];
 
-        // ★ Цвета для разных типов врагов
         const PART_COLORS = {
             smug: [0x8a1515, 0x2a0505, 0x1a0a05, 0xff2200],
             screamer: [0xdde0e8, 0xaabbcc, 0x8899bb, 0x223355],
             crier: [0x1a1a22, 0x0a0a10, 0xff0000, 0x330000]
         };
 
-        // ★ Пул материалов по цветам (чтобы не создавать каждый раз)
         const PART_MATERIALS = {};
         function getPartMaterial(color) {
             if (!PART_MATERIALS[color]) {
@@ -1710,7 +1841,6 @@
             return PART_MATERIALS[color];
         }
 
-        // ★ Следы крови на месте убийства
         const bloodDecals = [];
         const MAX_DECALS = 25;
 
@@ -1755,13 +1885,10 @@
             }
         }
 
-        // ★ Разбор врага на части: обходим все меши модели,
-        //    берём их мировые позиции и создаём независимые обломки
         function dismemberEnemy(enemyMesh, type) {
             const colors = PART_COLORS[type] || PART_COLORS.smug;
             const basePos = enemyMesh.position.clone();
 
-            // Собираем все меши модели и их мировые позиции
             const meshParts = [];
             enemyMesh.updateMatrixWorld(true);
             enemyMesh.traverse(child => {
@@ -1775,29 +1902,24 @@
                 }
             });
 
-            // Ограничиваем количество обломков, чтобы не лагало
             const maxParts = 12;
             const step = Math.max(1, Math.floor(meshParts.length / maxParts));
             let created = 0;
 
             for (let i = 0; i < meshParts.length && created < maxParts; i += step) {
                 const part = meshParts[i];
-                // Случайная геометрия из пула
                 const geo = PART_GEOMETRIES[Math.floor(Math.random() * PART_GEOMETRIES.length)];
                 const color = colors[Math.floor(Math.random() * colors.length)];
                 const mat = getPartMaterial(color);
                 const piece = new THREE.Mesh(geo, mat);
 
-                // Ставим в мировую позицию части тела
                 piece.position.copy(part.worldPos);
                 piece.scale.setScalar(0.8 + Math.random() * 0.6);
 
-                // Скорость разлёта — от центра врага наружу
                 const dirX = part.worldPos.x - basePos.x;
                 const dirZ = part.worldPos.z - basePos.z;
                 const len = Math.sqrt(dirX * dirX + dirZ * dirZ) || 1;
 
-                // Разлёт НЕДАЛЕКО от места убийства — горизонтальная скорость умеренная
                 const speedH = 1.5 + Math.random() * 2.5;
                 piece.userData.vx = (dirX / len) * speedH + (Math.random() - 0.5) * 1.5;
                 piece.userData.vz = (dirZ / len) * speedH + (Math.random() - 0.5) * 1.5;
@@ -1816,7 +1938,6 @@
                 created++;
             }
 
-            // ★ Красный след на месте убийства
             createBloodDecal(basePos.x, basePos.z, 1.0);
         }
 
@@ -1825,19 +1946,16 @@
                 const p = bodyParts[i];
                 p.userData.life += dt;
 
-                // Гравитация
                 p.userData.vy -= 14 * dt;
 
                 p.position.x += p.userData.vx * dt;
                 p.position.y += p.userData.vy * dt;
                 p.position.z += p.userData.vz * dt;
 
-                // Вращение
                 p.rotation.x += p.userData.rotSpeed.x * dt;
                 p.rotation.y += p.userData.rotSpeed.y * dt;
                 p.rotation.z += p.userData.rotSpeed.z * dt;
 
-                // Отскок от земли
                 if (p.position.y < 0.08 && p.userData.vy < 0) {
                     p.position.y = 0.08;
                     p.userData.vy *= -0.4;
@@ -1850,7 +1968,6 @@
                     }
                 }
 
-                // Затухание по времени жизни
                 if (p.userData.life > p.userData.maxLife) {
                     scene.remove(p);
                     bodyParts.splice(i, 1);
@@ -2011,28 +2128,13 @@
                     updateShopCoinsBadge();
                     addKillFeed(this.type);
 
-                    // ★ Разбираем врага на разлетающиеся части + след крови
                     dismemberEnemy(this.mesh, this.type);
 
                     scene.remove(this.mesh);
                     scene.remove(this.lightRing);
                     return true;
                 }
-                this.mesh.traverse(child => {
-                    if (child.isMesh && child.material) {
-                        if (!child.userData.origColor) {
-                            child.userData.origColor = child.material.color.clone();
-                        }
-                        child.material.color.setHex(0xff5555);
-                    }
-                });
-                setTimeout(() => {
-                    this.mesh.traverse(child => {
-                        if (child.isMesh && child.material && child.userData.origColor) {
-                            child.material.color.copy(child.userData.origColor);
-                        }
-                    });
-                }, 90);
+                // ★ Убрано любое визуальное изменение врага при получении урона
                 return false;
             }
         }
@@ -2140,7 +2242,20 @@
         let yaw = 0;
         let pitch = 0;
 
-        document.addEventListener('keydown', (e) => { keys[e.code] = true; });
+        document.addEventListener('keydown', (e) => {
+            keys[e.code] = true;
+
+            if ((e.code === 'Space' || e.key === ' ') && gameStarted && !gameOver && !paused && isGrounded) {
+                verticalVelocity = JUMP_FORCE;
+                isGrounded = false;
+                e.preventDefault();
+            }
+
+            if ((e.code === 'KeyF' || e.key === 'f' || e.key === 'F' || e.key === 'а' || e.key === 'А') && gameStarted && !gameOver && !paused) {
+                toggleFlashlight();
+                e.preventDefault();
+            }
+        });
         document.addEventListener('keyup', (e) => keys[e.code] = false);
 
         document.addEventListener('pointerlockchange', () => {
@@ -2264,7 +2379,6 @@
         const nightOverlay = document.getElementById('night-overlay');
         const hudEl = document.getElementById('hud');
         const timeNotification = document.getElementById('time-notification');
-        const nightBuffEl = document.getElementById('night-buff');
 
         function lerpColor(a, b, t) {
             return new THREE.Color(
@@ -2322,19 +2436,15 @@
                 if (newPhase === 'night') {
                     isNight = true;
                     showTimeNotification('🌙 НОЧЬ', '#aaccff');
-                    nightBuffEl.style.display = 'block';
                 } else if (newPhase === 'day') {
                     isNight = false;
                     showTimeNotification('☀️ УТРО', '#ffdd44');
-                    nightBuffEl.style.display = 'none';
                 } else if (newPhase === 'sunset') {
                     isNight = false;
                     showTimeNotification('🌅 ЗАКАТ', '#ff8844');
-                    nightBuffEl.style.display = 'none';
                 } else if (newPhase === 'dawn') {
                     isNight = false;
                     showTimeNotification('🌄 РАССВЕТ', '#ffaa88');
-                    nightBuffEl.style.display = 'none';
                 }
 
                 applyNightBuffToAll();
@@ -2373,17 +2483,17 @@
             scene.background.copy(skyColor);
             scene.fog.color.copy(skyColor);
 
-            sunLight.intensity = Math.max(0, 1 - t * 1.2);
-            moonLight.intensity = Math.max(0, t * 0.7 - 0.2);
-            ambientLight.intensity = 0.5 - t * 0.35;
-            hemiLight.intensity = 0.6 - t * 0.45;
+            sunLight.intensity = Math.max(0, 0.85 - t * 0.9);
+            moonLight.intensity = Math.max(0, t * 0.5 - 0.15);
+            ambientLight.intensity = 0.35 - t * 0.25;
+            hemiLight.intensity = 0.5 - t * 0.4;
 
-            if (t < 0.7) sunLight.color.setHex(0xffffff);
+            if (t < 0.7) sunLight.color.setHex(0xddddcc);
             else sunLight.color.setHex(0xffaa66);
 
             stars.material.opacity = Math.max(0, (t - 0.6) * 2.5);
             stars.rotation.y += dt * 0.005;
-            nightOverlay.style.opacity = t * 0.4;
+            nightOverlay.style.opacity = t * 0.5;
 
             let phaseName, phaseColor, borderColor;
             if (currentPhase === 'day') {
@@ -2456,6 +2566,19 @@
                     camera.position.z = newPos.z;
                 }
 
+                if (!isGrounded) {
+                    verticalVelocity -= GRAVITY * dt;
+                    playerHeight += verticalVelocity * dt;
+                    if (playerHeight <= 1.6) {
+                        playerHeight = 1.6;
+                        verticalVelocity = 0;
+                        isGrounded = true;
+                    }
+                    camera.position.y = playerHeight;
+                } else {
+                    camera.position.y = 1.6;
+                }
+
                 if (isShooting) shoot();
 
                 updateDayNight(dt);
@@ -2476,6 +2599,7 @@
         const crosshair = document.getElementById('crosshair');
         const controls = document.getElementById('controls');
         const killFeedEl = document.getElementById('kill-feed');
+        const btnPromoCorner = document.getElementById('btn-promo-corner');
 
         function updateShopCoinsBadge(flash = false) {
             const badge = document.getElementById('shop-coins-badge');
@@ -2495,6 +2619,7 @@
             settingsPanel.style.display = 'none';
             pauseMenu.style.display = 'none';
             promoModal.style.display = 'none';
+            btnPromoCorner.style.display = 'block';
         }
 
         function startGame() {
@@ -2503,12 +2628,22 @@
             settingsPanel.style.display = 'none';
             pauseMenu.style.display = 'none';
             promoModal.style.display = 'none';
+            btnPromoCorner.style.display = 'none';
 
             hud.style.display = 'block';
             crosshair.style.display = 'block';
             controls.style.display = 'block';
             killFeedEl.style.display = 'flex';
-            nightBuffEl.style.display = 'none';
+
+            flashlightOn = false;
+            flashlight.visible = false;
+            flashlightAmbient.visible = false;
+            const statusEl = document.getElementById('flashlight-status');
+            if (statusEl) {
+                statusEl.style.display = 'block';
+                statusEl.textContent = '🔦 Фонарь: ВЫКЛ (F)';
+                statusEl.style.color = '#886644';
+            }
 
             gameStarted = true;
             gameOver = false;
@@ -2521,6 +2656,10 @@
             currentPhase = 'day';
             isNight = false;
             isShooting = false;
+
+            verticalVelocity = 0;
+            playerHeight = 1.6;
+            isGrounded = true;
 
             camera.position.set(0, 1.6, 0);
             yaw = 0;
@@ -2535,7 +2674,6 @@
             bullets.forEach(b => releaseBullet(b));
             bullets.length = 0;
 
-            // Очищаем части тела и следы крови
             bodyParts.forEach(p => scene.remove(p));
             bodyParts.length = 0;
             bloodDecals.forEach(d => scene.remove(d));
@@ -2547,7 +2685,6 @@
             document.getElementById('wave-info').innerText = "🌊 Волна: 1";
             document.getElementById('gameover').style.display = 'none';
 
-            enterFullscreen();
             document.body.requestPointerLock();
 
             setTimeout(() => {
@@ -2576,12 +2713,15 @@
         document.getElementById('btn-shop').addEventListener('click', () => {
             mainMenu.style.display = 'none';
             shopPanel.style.display = 'flex';
+            btnPromoCorner.style.display = 'none';
             updateShopCoinsBadge();
             renderShop();
         });
         document.getElementById('btn-settings').addEventListener('click', () => {
             mainMenu.style.display = 'none';
             settingsPanel.style.display = 'flex';
+            btnPromoCorner.style.display = 'none';
+            updateFullscreenButton();
         });
 
         document.getElementById('shop-back').addEventListener('click', showMenu);
@@ -2598,7 +2738,11 @@
             controls.style.display = 'none';
             killFeedEl.style.display = 'none';
             nightOverlay.style.opacity = '0';
-            nightBuffEl.style.display = 'none';
+
+            flashlightOn = false;
+            flashlight.visible = false;
+            flashlightAmbient.visible = false;
+
             showMenu();
         });
 
@@ -2712,9 +2856,13 @@
         fogInput.addEventListener('input', () => {
             const v = parseInt(fogInput.value);
             fogVal.textContent = v;
-            settings.fogDensity = 0.001 + (v / 100) * 0.025;
-            scene.fog.density = settings.fogDensity;
+            scene.fog.density = 0.008 + (v / 100) * 0.045;
         });
+
+        (function initFog() {
+            const v = parseInt(fogInput.value);
+            scene.fog.density = 0.008 + (v / 100) * 0.045;
+        })();
 
         function setupToggle(id, key, onChange) {
             const el = document.getElementById(id);
@@ -2729,7 +2877,7 @@
         setupToggle('toggle-lights', 'dynamicLights', (on) => {
             hemiLight.visible = on;
             sunLight.visible = on;
-            ambientLight.intensity = on ? 0.5 : 0.8;
+            ambientLight.intensity = on ? 0.35 : 0.65;
         });
         setupToggle('toggle-invert', 'invertY');
         setupToggle('toggle-shake', 'screenShake');
@@ -2737,15 +2885,14 @@
             if (!on) {
                 scene.background.copy(daySky);
                 scene.fog.color.copy(daySky);
-                sunLight.intensity = 1.0;
-                sunLight.color.setHex(0xffffff);
+                sunLight.intensity = 0.85;
+                sunLight.color.setHex(0xddddcc);
                 moonLight.intensity = 0;
-                ambientLight.intensity = 0.5;
-                hemiLight.intensity = 0.6;
+                ambientLight.intensity = 0.35;
+                hemiLight.intensity = 0.5;
                 stars.material.opacity = 0;
                 nightOverlay.style.opacity = 0;
                 isNight = false;
-                nightBuffEl.style.display = 'none';
                 timeInfo.textContent = '☀️ День';
                 timeInfo.style.color = '#ffdd88';
                 hudEl.style.borderLeftColor = '#66aaff';
